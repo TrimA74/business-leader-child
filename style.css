@@ -1,0 +1,1074 @@
+
+/*
+Theme Name: Zerif Childteeeest
+Description: Thème enfant pour zerif-lite2
+Author: groupe 16
+Template: business-leader
+*/
+
+
+@import url("../business-leader/style.css");
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	font-family: "Times New Roman";
+	color:#000;
+
+}
+
+.site-main .small-index-thumbnail {
+    padding: 4rem 4rem 0px;
+    padding-left: 25%;
+}
+
+#site-navigation, .main-navigation {
+    text-align: left;
+    float:left;
+	width:90%;
+    background-color: #FFF;
+}
+
+#primary{
+	opacity:0;
+}
+
+#secondary{
+	width:0px;
+}
+.croix_ferm {
+    background-color: #000;
+    color: #FFF;
+    font-weight: bold;
+    border-radius: 0px 5px;
+    padding-right: 9px;
+    padding-left: 5px;
+}
+.croix_ferm:hover {
+  background-color:lightblue;
+  color:black;
+  cursor:pointer;
+}
+#croixfermeture:hover{
+	background-color:lightblue;
+	color:black;
+	cursor:pointer;
+}
+
+#croixfermeture {
+	background-color: #000;
+	color: #FFF;
+	text-align: right;
+	margin-left: 310px;
+	position: absolute;
+	left: 560px;
+	top: 0px;
+	border-radius: 0px 5px;
+	padding-right: 9px;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.back_loader {
+  position : fixed;
+  z-index: 9998;
+  top : 0px;
+  left : 0px;
+  height : 100%;
+  width : 100%;
+  background-color: #DCD2D2;
+  opacity: 0.5;
+}
+.loader {
+
+position : fixed;
+z-index: 9999;
+background-image : url('../business-leader-child/images/loader.gif');
+background-position: center;
+background-repeat: no-repeat;
+background-size: 10% 15%;
+top : 0px;
+left : 0px;
+height : 100%;
+width : 100%;
+cursor : wait;
+}
+#_subInscription{
+	margin-top:10px;
+}
+#descriptionins{
+ 	position:absolute;
+	bottom:150px;
+	left:450px;
+	right:40px;
+	display:inline-block;
+	font-size:14px;
+
+}
+
+*{
+	list-style-type: none; 	
+	/*overflow-X:hidden;*/
+}
+/* div inscription */
+#cboxLoadedContent{
+  height : 640px;
+  width : 900px;
+  position : fixed;
+  z-index:5000;
+  font-size:14px;
+}
+
+/* confirmation inscription */
+div.wpcf7-mail-sent-ok{
+	position: absolute;
+	right: 200px;
+	bottom: 60px;
+}
+/* erreur val form inscription */
+div.wpcf7-validation-errors{
+	position:absolute;
+	bottom:30px;
+	right:30px;
+	font-size:14px;
+}
+
+/* div inscription */
+#donneeperso{
+	margin-left:65px;
+	float:left;
+	display:inline-block;
+}
+
+#donneenum{
+	margin-left:100px;
+	float:right;
+	position:absolute;
+	display:inline-block;
+}
+
+button { 
+  margin-top:19px;
+  /*background-image: -webkit-linear-gradient(top, #0087db, #064a78);
+  background-image: -moz-linear-gradient(top, #0087db, #064a78);
+  background-image: -ms-linear-gradient(top, #0087db, #064a78);
+  background-image: -o-linear-gradient(top, #0087db, #064a78);
+  background-image: linear-gradient(to bottom, #0087db, #064a78);*/
+  border-color: pink;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 10px;
+  /*box-shadow: 0px 12px 15px #666666;*/
+  font-family: "Lato",Helvetica,Arial,sans-serif;
+  color: #404040;
+  font-size: 15px;
+  padding: 5px 5px 5px 5px;
+  margin-right:2%;
+  border: solid white 1px;
+  text-decoration: none;
+  text-transform : none;
+  
+}
+button:hover{
+		border-color:lightblue;
+		color:lightblue;
+}
+
+
+.site-header .site-branding{
+		padding-right: 0;
+		padding-left: 2rem;
+}
+
+
+#masthead, header, .site-header{
+	background-color: white;
+	position:fixed;
+	width:100%;
+	margin-right:40%;
+	top:-17%;
+	
+}
+#masthead{
+	box-shadow: 4px 4px 6px #aaa;
+}
+
+.main-navigation ul li a {
+	color:black;
+	font-family: "Helvetica";
+}
+/*css reservation*/
+.resa_div{
+  border : 2px solid orange;
+  margin : 85px;
+  padding : 20px;
+  width : 400px;
+}
+.annul_resa_div{
+  border : 2px solid orange;
+  margin : 85px;
+  padding : 20px;
+  width : 400px;
+}
+.loginbox {
+  position: fixed;
+  z-index: 2000;
+  top:5vw;
+  right:0;
+  /*padding-top: 100px;*/
+  background-color:white;
+  opacity: 0.9;
+  border-radius: 5px;
+  margin:0;
+  -moz-box-shadow: 2px 2px 5px 0px #656565;
+  -webkit-box-shadow: 2px 2px 5px 0px #656565;
+  -o-box-shadow: 2px 2px 5px 0px #656565;
+  box-shadow: 2px 2px 5px 0px #656565;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+
+}
+#croix_login {
+  position: absolute;
+  top:0;
+  right:0;
+  cursor:pointer;
+}
+
+.div_drapeaux {
+  position:fixed; 
+  /*top:4vh;*/ 
+  right:0;
+  z-index: 2000;
+  padding-right: 1%;
+
+
+
+}
+#btnconnec{
+   position : absolute;
+   margin-right: 70px;
+   z-index: 3000;
+   margin-top: 20px;
+   right: 50px;
+}
+
+p{
+	margin-bottom:0px;
+}
+
+#btnins{
+   position : absolute;
+   right : 0;
+   top : 0;
+   margin-top: 20px;
+   margin-right: 200px;
+   z-index: 3000;
+}
+
+
+#form-lightbox-1{
+  width: 750px;
+}
+
+.header-container{
+	width:100%;
+	height:200px;
+}
+@media all and (max-width: 1280px)
+{
+  #croixfermeture{
+	margin-left: 310px;
+	left: 562px;
+	}
+
+	#login-box{
+		margin-top:40px;
+	}
+	/* truc muche */
+	#donneeperso p span input{
+	   width:312px;
+   }
+   #donneenum p span input{
+	   width:312px;
+   }
+   #descriptionins p{
+	   font-size:12px;
+   }
+   #descriptionins{
+	    left:520px;
+		right:30px;
+		bottom:200px;
+   }
+	
+	#cboxLoadedContent{
+	  height : 640px;
+	  width : 900px;
+	}
+	
+	#form-lightbox-1{
+		 font-size:12px;
+	}
+	/* confirmation inscription */
+	div.wpcf7-mail-sent-ok{
+	right: 200px;
+	bottom: 60px;
+	font-size:12px;
+	}
+	/* erreur val form inscription */
+	div.wpcf7-validation-errors{
+		bottom:30px;
+		right:30px;
+		font-size:12px;
+	}
+
+	/* div inscription */
+	#donneeperso{
+		margin-left:100px;
+	}
+
+	#donneenum{
+		margin-left:100px;
+	}
+  #btnconnec{
+     font-size:10px;
+	 margin-top: 23px;
+	 transition : all 0.5s ease-in-out;
+   }
+  #btnins{
+     font-size:10px;
+	  margin-top: 23px;
+	 transition : all 0.5s ease-in-out;
+	 margin-right: 180px;
+   }
+  #site-navigation, .main-navigation{
+	text-align:left;
+	left:0;
+	height:70px;
+	background-color:#FFF;
+	}
+
+     .div_drapeaux {
+	position:fixed;
+    top:0; 
+    z-index: 2000;
+   }
+   
+   #masthead, header, .site-header{
+   position:fixed;
+   }
+   
+   #content{
+	margin-top:75px;
+   }
+   
+   .header-container{
+	height:100px;
+	}
+	.main-navigation ul li a {
+	 font-size:10px;
+	 transition : font-size 0.5s ease-in-out;
+  }
+  .main-navigation ul ul{
+	  top:70px;
+  }
+}
+
+@media all and (max-width: 1024px)
+{
+  /*#btnconnec{
+      display:none;
+   }
+  #btnins{
+     display:none;
+   }*/
+   #menu-menu-principal li a{
+	   height:65px;
+   }
+   
+   #site-navigation, .main-navigation{
+	height:65px;
+	}
+   
+  .main-navigation ul ul{
+	  top:65px;
+  }
+   
+   #croixfermeture{
+	margin-left: 310px;
+	left: 163px;
+	}
+	
+   #descriptionins p{
+	   font-size:10px;
+   }
+   #descriptionins{
+	    left:250px;
+		right:30px;
+		bottom:240px;
+   }
+   .sub-menu{
+	   top:70px;
+   }
+   
+   /*#site-navigation{
+	   height: 70px;
+   }*/
+   #cboxLoadedContent{
+	  width : 500px;
+	}
+   .site-header .site-branding .logo img {
+		 margin-top: 0px;
+		 }
+   #nav-menu-toggle {
+    color:black;
+    background-color:#ADD8E6;
+   }
+   #nav-menu-toggle:hover {
+    background-color:#ADD8E6;
+   }
+  #masthead, header, .site-header{
+   position:fixed;
+   }
+ .header-container{
+	height:90px;
+	transition: height 0.5s;
+	}
+   #content{
+	margin-top:50px;
+   }
+   /* inscription bootstrap */
+   
+   #donneeperso p span input{
+	   width:150px;
+   }
+   #donneenum p span input{
+	   width:150px;
+   }
+	   /* div inscription */
+	
+	#form-lightbox-1{
+		 font-size:10px;
+	}
+		/* confirmation inscription */
+	div.wpcf7-mail-sent-ok{
+		left:30px;
+		right: 150px;
+		bottom: 60px;
+	}
+	/* erreur val form inscription */
+	div.wpcf7-validation-errors{
+		left:30px;
+		position:absolute;
+		bottom:30px;
+		right:150px;
+		font-size:14px;
+	}
+
+	/* div inscription */
+	#donneeperso{
+		margin-left:30px;
+	}
+
+	#donneenum{
+		margin-left:90px;
+	}
+
+}
+
+@media all and (max-width: 950px)
+{
+  #btnconnec{
+     font-size:9px;
+	 margin-top: 23px;
+	 transition : all 0.5s ease-in-out;
+	 margin-right:20px;
+   }
+  #btnins{
+     font-size:9px;
+	  margin-top: 23px;
+	 transition : all 0.5s ease-in-out;
+	 margin-right: 120px;
+   }
+   .main-navigation ul li a {
+	 font-size:9px;
+	 transition : font-size 0.5s ease-in-out;
+  }
+    
+}
+
+@media all and (max-width: 835px)
+{
+  #btnconnec{
+     font-size:8px;
+	 margin-top: 21px;
+	 transition : all 0.5s ease-in-out;
+   }
+  #btnins{
+     font-size:8px;
+	  margin-top: 21px;
+	 transition : all 0.5s ease-in-out;
+	 margin-right: 130px;
+   }
+   .main-navigation ul li a {
+	 font-size:8px;
+	 transition : font-size 0.5s ease-in-out;
+  }
+  
+}
+
+@media all and (max-width: 600px)
+{
+	#masthead, header, .site-header{
+	   position:absolute;
+	   }
+	 .div_drapeaux {
+     position:absolute;
+	 }	 
+}
+
+@media all and (max-width: 500px)
+{
+	 #croixfermeture{
+	margin-left: 323px;
+	left: 0px;
+	}
+	#logo_header{
+			display:none;
+	}
+   .div_drapeaux {
+  right:0px;
+  z-index: 2000;
+  padding-right: 1%;
+  top:0;
+   }
+   .lwa{
+	 margin:2px;  
+   }
+   .lwa-username-input input[type="text"]{
+	 width:200px;  
+   }
+   .lwa-password-input input[type="password"]{
+	   width:200px;  
+   }
+   #lwa_wp-submit{
+	margin:1px;
+	font-size:8px;
+   }
+   #cboxLoadedContent{
+	  width : 350px;
+	  height:400px;
+	}
+   #_subInscription{
+	   width:100px;
+		height:5px;
+		font-size:9px;
+		padding:10px;
+   }
+   
+ #masthead, header, .site-header{
+   position:inherit;
+   }
+   .loginbox {
+	  font-size:8px;
+	  top:10vw;
+	  /*padding-top: 100px;*/
+	  margin:0;
+	  padding: 2px;
+	  -moz-border-radius: 10px;
+	  -webkit-border-radius: 10px;
+	  border-radius: 10px;
+	}
+     /* inscription bootstrap */
+   
+   #donneeperso p span input{
+	   width:100px;
+	   height:5px;
+   }
+   #donneenum p span input{
+	    width:100px;
+		height:5px;
+   }
+	   /* div inscription */
+	
+	#form-lightbox-1{
+		 font-size:9px;
+	}
+	/* confirmation inscription */
+	div.wpcf7-mail-sent-ok{
+	right: 20px;
+	bottom: 10px;
+	font-size:9px;
+	}
+	/* erreur val form inscription */
+	div.wpcf7-validation-errors{
+		bottom:10px;
+		right:10px;
+		font-size:9px;
+	}
+
+	/* div inscription */
+	#donneeperso{
+		margin-left:5px;
+	}
+
+	#donneenum{
+		margin-left:5px;
+	}
+	 #descriptionins p{
+	   font-size:9px;
+   }
+   #descriptionins{
+	    left:130px;
+		right:5px;
+		bottom:120px;
+   }
+}
+
+@media all and (max-width: 400px)
+{
+	#descriptionins{
+		left:20px;
+		right:20px;
+	}
+	
+	#croixfermeture{
+	margin-left: 260px;
+	}
+		
+	#cboxLoadedContent, #cboxLoaded{
+	  width : 285px;
+	  
+	}
+}
+
+.header-content-wrap{
+  background-color: rgba(0,0,0,0);
+}
+
+#cboxWrapper{
+    position : absolute;
+}
+#colorbox{
+  position : absolute;
+}
+#cboxClose{
+  display:none;
+}
+
+
+input[type="submit"] {
+    padding: 0.7em 1em;
+    font-size: 1.7rem;
+    font-weight: 400;
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+    line-height: 1;
+    background: transparent none repeat scroll 0% 0% padding-box;
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	color: lightblue;
+    border: 2px solid lightblue;
+
+}
+#cboxOverlay{
+  background-color: #000;
+  opacity: 0.5;
+}
+
+
+#cboxLoadedContent {
+    border: 1px solid #3885E7;  
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;   
+}
+
+#cboxContent{
+   background:none;
+}
+
+.main-navigation .current_page_item > a, .main-navigation .current-menu-item > a, .main-navigation .current_page_item > a:hover, .main-navigation .current-menu-item > a:hover {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation ul li:hover > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation ul ul li:hover > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation ul ul ul li:hover > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation ul ul li {
+    background: white none repeat scroll 0% 0%;
+}
+
+p{
+  
+  font-family: Verdana;
+}
+
+input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], textarea {
+    padding: 0.5rem 1rem;
+    border: 2px solid lightblue;
+    background-clip: padding-box;
+    border-radius: 4px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 300;
+	width: 312px; 
+}
+
+#gwolle_gb .input{
+    width: 40%;
+    margin-left: 10%;
+}
+
+
+
+#_insTel {
+    padding: 0.5rem 1rem;
+    border: 2px solid lightblue;
+    background-clip: padding-box;
+    border-radius: 4px;
+    color: #000;
+    font-size: 18px;
+	width:312px;
+    font-weight: 300;
+}
+.widget_recent_entries {
+	border: solid 2px;
+    background-color: lightblue;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px 0px #656565;
+
+  }
+  
+.formError .formErrorContent {
+    background: #E30000 none repeat scroll 0px 0px;
+    border: 1px solid #BBB;
+    color: #FFF;
+    font-family: tahoma;
+    font-size: 11px;
+    padding: 4px 10px;
+    position: relative;
+    width: 150px;
+    z-index: 5001;
+	right: 100%;
+}
+
+.main-navigation ul li:hover > a {
+    background: #ADD8E6 none repeat scroll 0% 0%;
+
+}
+
+a {
+    color: #ADD8E6;
+}
+
+.main-navigation .current_page_parent .current_page_item > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation .current_page_parent .current_menu_item > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+.main-navigation .current_page_parent > a {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+
+.main-navigation .current_page_item > a, .main-navigation .current-menu-item > a, .main-navigation .current_page_item > a:hover, .main-navigation .current-menu-item > a:hover {
+    background: #ADD8E6 none repeat scroll 0% 0%;
+
+}
+
+.main-navigation .current_page_ancestor {
+    background: lightblue none repeat scroll 0% 0%;
+}
+
+/*.formError {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    display: block;
+    z-index: 5000;
+    cursor: pointer;
+}*/
+
+
+
+#gwolle_gb .admin-entry {
+    color: #333;
+    background-color: #DA1313;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(center top , lightblue, #FF0A0A);
+    padding-left: 5px;
+
+}
+
+/*.main-navigation {
+    position: relative;
+    float: right;
+    display: block;
+    padding-right: 2rem;
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    font-weight: 100;
+    text-transform: uppercase;
+}*/
+
+/* Effet Logo menu header */
+#logo_header{
+   transition: all 2s;
+}
+
+#logo_header:hover {
+	transform: rotate(360deg);
+   
+}
+/* Galerie photo effet */
+figure:hover{
+	transform : rotate(5deg) scale(1.15);
+	transition: all 0.5s;
+}
+
+figure{
+	transform : rotate(0deg) scale(1);
+	transition: all 0.5s;
+}
+
+/* Actualités effets */
+.srp-post-content-container:hover{
+	transform : scale(1.25);
+	transition: all 0.5s;
+}
+
+.srp-post-content-container{
+	transform : scale(1);
+	transition: all 0.5s;
+}
+/* Menu effets 
+#menu-menu-principal:hover > a{
+	transform : translateY(-2px);
+	transition: all 0.0.5s;
+}*/
+
+a img {
+    border: 0px none;
+	margin-left: 10px;
+}
+
+/*.form-validation-field-0formError .parentFormform-wysija-6 .formError{
+    opacity: 0.87;
+    position: absolute;
+    top: 1500px;
+    left: 90%;
+    margin-top: 0px;
+}*/
+
+/* Menu retracté plus tard ! */
+
+@media screen and (max-width: 760px) {
+	 #content{
+	margin-top:0px;
+   }
+	
+	#logo_header{
+			display:none;
+	}
+	
+	 .div_drapeaux {
+	  /*top:4vh;*/ 
+	  right:70px;
+	  z-index: 2000;
+	  padding-right: 1%;
+	  top:20px;
+   }
+	#menu-menu-principal, #menu-menu-principal li{
+		background-color:white;
+		z-index:5000;
+	}
+	#primary, #secondary{
+		z-index:-1;
+	}
+	#masthead{
+		height:45px;
+	}
+	
+	#menu-menu-principal li{
+		background-color:white;
+	}
+	
+	#btnconnec{
+     font-size:10px;
+	 margin-top: 10px;
+	 transition : all 0.5s ease-in-out;
+	 left:60px;
+   }
+  #btnins{
+     font-size:10px;
+	  margin-top: 10px;
+	 transition : all 0.5s ease-in-out;
+	 left:5px;
+   }
+   
+  .menu-toggle {
+    line-height: 45px;
+    height: 45px;
+    padding: 0 1em;
+    display: block;
+    float: right;
+    text-align: center; }
+    .menu-toggle:hover, .menu-toggle.clicked {
+      background: #4d4d4d; }
+
+  .main-navigation {
+    display: none;
+    float: none;
+    clear: both;
+    background: #4d4d4d;
+    padding-right: 0; }
+    .main-navigation.toggled {
+      display: block;
+      clear: both;
+      border-top: 1px solid;
+      border-top-color: #4d4d4d; }
+    .main-navigation ul {
+      padding-left: 0; }
+      .main-navigation ul li {
+        float: none; }
+        .main-navigation ul li a {
+          line-height: 20px; }
+        .main-navigation ul li > a:hover {
+          background: lightblue; }
+        .main-navigation ul li:hover > a {
+          background: inherit; }
+        .main-navigation ul li > a:hover {
+          background: lightblue; }
+      .main-navigation ul ul {
+        position: relative;
+        top: inherit;
+        left: 0;
+        display: block;
+        float: none;
+        box-shadow: none;
+        background: inherit; }
+        .main-navigation ul ul li a {
+          width: auto;
+          line-height: 20px; }
+        .main-navigation ul ul a {
+          width: 100%; }
+          .main-navigation ul ul a:hover {
+            background: lightblue; }
+        .main-navigation ul ul ul {
+          position: relative;
+          top: inherit;
+          left: 0;
+          display: block;
+          float: none;
+          box-shadow: none;
+          background: inherit; }
+        .main-navigation ul ul .current_page_parent {
+          color: inherit;
+          background: inherit; }
+      .main-navigation ul a:hover {
+        background: lightblue; }
+    .main-navigation li {
+      float: none; }
+      .main-navigation li a {
+        padding: 1.3em 2em; }
+      .main-navigation li li a {
+        padding-left: 4em; }
+      .main-navigation li li li a {
+        padding-left: 6em; }
+    .main-navigation .current_page_ancestor {
+      background: inherit; }
+    .main-navigation .current_page_item > a,
+    .main-navigation .current_page_parent .current_page_item > a,
+    .main-navigation .current_page_item > a:hover,
+    .main-navigation .current-menu-item > a:hover {
+      background: lightblue; } }
+/* -------------- */
+
+.widget a {
+    font-weight: 300;
+    text-decoration: none;
+	color : black;
+}
+
+.widget a:hover {
+    font-weight: 300;
+    text-decoration: none;
+	color : lightblue;
+}
+
+.widgettitle {
+    margin-bottom: 1em;
+    font-size: 2.3rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    border-top: 1px solid #E3E3E3;
+}
+.idtitrenoIns{
+  text-align: center;
+  color: red;
+}
+
+
+
+#gwolle_gb #user_login {
+    width: 40%;
+    margin-left: 12.5%;
+}
+#wp-admin-bar-root-default{
+  float:right;
+}
+
+.formError .formErrorContent{
+	position:absolute;
+	right:270px;
+	}
+	
+#form-wysija-6 p label div div{
+	right:35px;
+}
+
+.entry-header {
+  position:inherit;
+}
+
+#primary {
+  padding-left: 25%;
+}
+
+@media all and (max-width: 1424px) {
+  #primary {
+  padding-left: 35%;
+}
+}
+@media all and (max-width: 925px) {
+  #primary {
+  padding-left: 0%;
+}
+}
