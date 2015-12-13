@@ -1,6 +1,15 @@
 
 
 jQuery(document).ready(function($) { 
+/*
+* Fonction qui sert au bootstrap, à chaque redimensionnement de la page 
+*/
+$(window).resize(function() {
+if(this.resizeTO) clearTimeout(this.resizeTO);
+this.resizeTO = setTimeout(function() {
+  $(this).trigger('windowResize');
+}, 500); 
+});
 
 jQuery(window).load(function() {
 						  jQuery(".loader").fadeOut("1000");
@@ -16,8 +25,6 @@ jQuery(window).load(function() {
 $("#secondary").animate({width: '342px'}, "slow");
 
 $("#primary").animate({opacity: '1'}, 1500);
-
-$('.div_drapeaux').css('position','fixed');
 
 var current_url_deco = cjm_object.logout_link;
 $(".category-list").hide();
@@ -46,34 +53,47 @@ $('#btnins').click(function(){
 	$('#cboxOverlay').css('display','block');
 	$('#cboxContent').css('display','block');
 });
-console.log(cjm_object);
-			if(cjm_object.is_connected==1)
-			{
-				$("#masted").animate({top: '32px'}, "slow");
-				$(".site-header").animate({top: '32px'}, "slow");
-				// $("#masted").css('top','32px');
-				// $(".site-header").css('top','32px');
-				$("[name='connexion_button_boxopen']").html('Déconnexion');
-				$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
-				loginbox.hide();
-				$('.fl_box-1:button').hide();
-				$('.div_drapeaux').css('top','32px');
-				
-				if($(window).width()<=800)
-				{
-					$('.div_drapeaux').css('top','48px');
-				}
-				if($(window).width()<=600)
-				{
-					$('.div_drapeaux').css('position','absolute');
-				}
-			}
-			else{
-					$('.div_drapeaux').css('top','0px');
-					$("#masthead").animate({top: '0px'}, "slow");
-					$(".site-header").animate({top: '0px'}, "slow");
-					/* interdire enregistre */
-				}
+if(cjm_object.is_connected==1)
+{
+	if($(window).width()<=780)
+		{
+			$('.div_drapeaux').css('top','48px');
+			$('.div_drapeaux').css('position','absolute');
+			$(".site-header").animate({top: '46px'}, "slow");
+		}
+		else {
+			$("#masted").animate({top: '32px'}, "slow");
+			$(".site-header").animate({top: '32px'}, "slow");
+			$('.div_drapeaux').css('top','38px');
+			$('.div_drapeaux').css('position','fixed');
+		}
+	$(window).on('windowResize', function() {
+		if($(window).width()<=780)
+		{
+			$('.div_drapeaux').css('top','48px');
+			$('.div_drapeaux').css('position','absolute');
+			$(".site-header").animate({top: '46px'}, "slow");
+		}
+		else {
+			$("#masted").animate({top: '32px'}, "slow");
+			$(".site-header").animate({top: '32px'}, "slow");
+			$('.div_drapeaux').css('top','38px');
+			$('.div_drapeaux').css('position','fixed');
+		}
+	});
+	$("[name='connexion_button_boxopen']").html('Déconnexion');
+	$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
+	loginbox.hide();
+	$('.fl_box-1:button').hide();
+	
+
+}
+else{
+		$('.div_drapeaux').css('top','0px');
+		$("#masthead").animate({top: '0px'}, "slow");
+		$(".site-header").animate({top: '0px'}, "slow");
+		/* interdire enregistre */
+	}
 $('.page-header').hide();
 
 

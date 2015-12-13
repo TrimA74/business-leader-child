@@ -64,7 +64,6 @@ if( !current_user_can( 'manage_options' ) ) {
 			        $site_url = get_site_url();
 			       	$current_get=$_GET;
 			        $current_site_url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
-					// $logout_link = wp_logout_url(home_url());
 			    ?>
 			 
 		<div id="nav-menu-toggle" class="menu-toggle">
@@ -104,7 +103,6 @@ if( !current_user_can( 'manage_options' ) ) {
 		</nav><!-- #site-navigation -->
 		<!--[if !IE]><!-->
 		<script type="text/javascript">
-						console.log(cjm_object);
 						if(cjm_object.is_connected)
 						{
 							 var data = {
@@ -112,7 +110,7 @@ if( !current_user_can( 'manage_options' ) ) {
 							      'user': 'true'
 							      };
 							jQuery.post(cjm_object.ajax_url,data,function (data) {	
-								console.log(data.roles[0]);
+								
   							},"json");
 						}
 						if(cjm_object.current_lang!='it')
@@ -146,9 +144,6 @@ if( !current_user_can( 'manage_options' ) ) {
 						lang[0].children[1].href = newLienfr;
 						lang[0].children[0].href = newLienit;
 						var current_get='<?php echo $current_get ?>';
-						var isIE = "<?php echo $isIE; ?>";
-						if(isIE)
-							console.log("isIE");
 						if (cjm_object.is_connected==1) {
 							cjm_object.is_connected=true;
 						}else {

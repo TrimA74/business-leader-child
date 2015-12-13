@@ -508,6 +508,10 @@ p{
 	 font-size:8px;
 	 transition : font-size 0.5s ease-in-out;
   }
+  #div_drapeaux
+  {
+    top:42px;
+  }
   
 }
 
@@ -517,6 +521,7 @@ p{
 	   }
 	 .div_drapeaux {
      position:absolute;
+
 	 }	 
 }
 
@@ -532,7 +537,7 @@ p{
   right:0px;
   z-index: 2000;
   padding-right: 1%;
-  top:0;
+  position: absolute;
    }
    .lwa{
 	 margin:2px;  
@@ -862,7 +867,11 @@ a img {
 /* Menu retracté plus tard ! */
 
 @media screen and (max-width: 760px) {
-	 #content{
+	 #masthead
+   {
+    top:46px;
+   }
+   #content{
 	margin-top:0px;
    }
 	
@@ -871,11 +880,10 @@ a img {
 	}
 	
 	 .div_drapeaux {
-	  /*top:4vh;*/ 
 	  right:70px;
 	  z-index: 2000;
 	  padding-right: 1%;
-	  top:20px;
+	  top:42px;
    }
 	#menu-menu-principal, #menu-menu-principal li{
 		background-color:white;
