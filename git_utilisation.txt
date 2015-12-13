@@ -1,0 +1,25 @@
+Pour récuperer ce qu'il y a dans le depot distant github en écrasant ses propres modif en local : 
+
+git fetch --all
+git reset --hard origin/master
+
+git commit -a -m "mon premier commit" pour commiter le tout  
+git add --all --> a faire avant un commit pour stage les fichiers
+git status pour avoir des infos 
+
+Pour le .gitignore (touch .gitignore pour création )
+*.tmp ---> ignore tous les fichiers tmp
+temp/* ---> ignore le dossier tmp
+
+
+git log --> voir les derniers commit
+
+git log -n 2 --> 2 dernier commit 
+
+Appuyer sur Q pour sortir 
+
+git help log
+
+git log --online ---> afficher les commits sur une ligne
+
+
