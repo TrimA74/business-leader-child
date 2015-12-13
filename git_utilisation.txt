@@ -22,4 +22,9 @@ git help log
 
 git log --online ---> afficher les commits sur une ligne
 
+git pull origin master --> récupérer le depot distant et fusionner 
+
+git pull --rebase origin master --> récupérer depot distant et fusionner mais d'aboard fichier distant avant les siens
+
+Mieux pour l'historique
 
