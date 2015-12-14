@@ -1,6 +1,7 @@
 
 
 jQuery(document).ready(function($) { 
+var loginbox = $('#login-box');
 /*
 * Fonction qui sert au bootstrap, à chaque redimensionnement de la page 
 */
@@ -20,7 +21,10 @@ jQuery(window).load(function() {
 	$("#cboxLoadedContent").css("overflow","hidden");
 	$("#cboxLoadedContent").css("height","640px");
 */
+// $("#con_resa").click(function () {
+// loginbox.show();
 
+// });
 
 $("#secondary").animate({width: '342px'}, "slow");
 
@@ -32,7 +36,7 @@ $(".post-navigation").hide();
 $("#wp-admin-bar-adminbar_gc_menu").remove();
 
 
-var loginbox = $('#login-box');
+
 loginbox.hide();
 if($(".wpcf7-mail-sent-ok").is(":visible")){
 	$("#cboxLoadedContent").empty();
@@ -40,7 +44,7 @@ if($(".wpcf7-mail-sent-ok").is(":visible")){
 
 }
 $('body').css('transform','rotate(45)');
-$('#btnIns').click(function(){
+$('#btnIns, #ins_resa').click(function(){
 		$('#lightboxIns').css('display','block');
 	})
 	
@@ -49,7 +53,7 @@ $('#croixfermeture').click(function(){
 	$('#cboxContent').css('display','none');
 	location.reload();
 });
-$('#btnins').click(function(){
+$('#btnIns, #ins_resa').click(function(){
 	$('#cboxOverlay').css('display','block');
 	$('#cboxContent').css('display','block');
 });
@@ -98,7 +102,7 @@ $('.page-header').hide();
 
 
 
-$("[name='connexion_button_boxopen']").click(function(){
+$("[name='connexion_button_boxopen'], #con_resa").click(function(){	
 		  var isDisplay = $('#login-box').css('display');
 	        if (isDisplay=='block' || !$('#lwa_wp-submit').is(':hidden'))
 					{
@@ -142,6 +146,14 @@ $("[name='connexion_button_boxopen']").click(function(){
 	        	{
 	        		$('.lwa-username-label label').text("Adresse mail");
 	        	}
+	        	if($(this)[0].id=="con_resa")
+					{
+						$('.loginbox').css("top","40%"); $('.loginbox').css("right","50%");
+
+					}
+					else {
+						$('.loginbox').css("top","5vw"); $('.loginbox').css("right","0");
+					}
 	        }
 	});
 $('#login-box').append('<div id=\"croix_login\" class=\"croix_ferm\">x</div>');

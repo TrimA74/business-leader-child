@@ -19,7 +19,10 @@ get_header(); ?>
 				     if($etat_resa1[0] == "cloture"){
 		            	echo '<h2 class="idtitrenoIns">Cette réservation est cloturée</h2>';
 		            }else{
-		            	echo '<h2 class="idtitrenoIns">Vous devez être inscrit pour pouvoir réservé votre séjour</h2>';
+		            	echo '<h2 class="idtitrenoIns">Vous devez être inscrit pour pouvoir réserver votre séjour</h2>';
+		            	echo '<center><button style="text-align:center;" type="button" id="con_resa" value="se connecter">Connexion</button>';
+		            	echo '<button style="text-align:center;" type="button" id="ins_resa" value="sinscrire" href="'.do_shortcode( '[formlightbox title="" text="Inscription"]
+					[cfp id="62" title="Sans titre" pwd="insPasswd"][/formlightbox]').'</button></center>';
 		            }
 		    }?>
 

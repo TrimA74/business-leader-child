@@ -45,6 +45,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 #secondary{
 	width:0px;
+	background-color:#E9EAED;
 }
 .croix_ferm {
     background-color: #000;
@@ -867,10 +868,14 @@ a img {
 /* Menu retracté plus tard ! */
 
 @media screen and (max-width: 760px) {
-	 #masthead
-   {
+	#masthead
+	{
     top:46px;
-   }
+    }
+   
+   #masthead, header, .site-header{
+	   position:absolute;
+	   }
    #content{
 	margin-top:0px;
    }
@@ -884,6 +889,7 @@ a img {
 	  z-index: 2000;
 	  padding-right: 1%;
 	  top:42px;
+	  position:absolute;
    }
 	#menu-menu-principal, #menu-menu-principal li{
 		background-color:white;
