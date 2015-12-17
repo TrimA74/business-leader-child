@@ -32,3 +32,8 @@ Pour les permaliens :
 
 Faut que le module apache "rewrite_module" soit activé pour que le fichier .htaccess de wp soit pris en compte 
 
+Mettre : 
+
+/%category%/%postname%.html
+
+Dans permaliens personnalisés pour le référencement 
