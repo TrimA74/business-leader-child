@@ -1,4 +1,4 @@
-Pour rÈcuperer ce qu'il y a dans le depot distant github en Ècrasant ses propres modif en local : 
+Pour r√©cuperer ce qu'il y a dans le depot distant github en √©crasant ses propres modif en local : 
 
 git fetch --all
 git reset --hard origin/master
@@ -7,7 +7,7 @@ git commit -a -m "mon premier commit" pour commiter le tout
 git add --all --> a faire avant un commit pour stage les fichiers
 git status pour avoir des infos 
 
-Pour le .gitignore (touch .gitignore pour crÈation )
+Pour le .gitignore (touch .gitignore pour cr√©ation )
 *.tmp ---> ignore tous les fichiers tmp
 temp/* ---> ignore le dossier tmp
 
@@ -22,9 +22,13 @@ git help log
 
 git log --online ---> afficher les commits sur une ligne
 
-git pull origin master --> rÈcupÈrer le depot distant et fusionner 
+git pull origin master --> r√©cup√©rer le depot distant et fusionner 
 
-git pull --rebase origin master --> rÈcupÈrer depot distant et fusionner mais d'aboard fichier distant avant les siens
+git pull --rebase origin master --> r√©cup√©rer depot distant et fusionner mais d'aboard fichier distant avant les siens
 
 Mieux pour l'historique
+
+Pour les permaliens : 
+
+Faut que le module apache "rewrite_module" soit activ√© pour que le fichier .htaccess de wp soit pris en compte 
 
