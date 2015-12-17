@@ -11,24 +11,23 @@ function admin_enqueue_scripts () {
 }
 add_action( 'admin_enqueue_scripts', 'admin_enqueue_scripts' );
 function cjm_enqueue_scripts() {
-    global $wp_styles;
-    global $is_chrome;
-    global $is_gecko;
-        if($is_gecko || $is_chrome)
-        {
-            wp_register_script( 'manip_groupe',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'manip_groupe.js', 'jquery', '1.0');
-            wp_localize_script( 'manip_groupe', 'cjm_object',
-                 array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'site_url_js' => get_site_url(), 'logout_link' => wp_logout_url() , "is_connected" => is_user_logged_in(), "current_lang" => $_GET['lang']) );
-            wp_enqueue_script( 'manip_groupe' );
-        }
-        else {
-            wp_enqueue_style( 'my-theme-ie',get_site_url()."/wp-content/themes/business-leader-child/ie.css");
-            wp_register_script( 'ie_js',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'ie.js', 'jquery', '1.0');
-            wp_enqueue_script( 'ie_js' );
-            $wp_styles->add_data( 'my-theme-ie', 'conditional', 'lt IE 9' );
-        }
-     
-        
+  global $wp_styles;
+  global $wp_scripts;
+    /*
+    * Ajout du script manip_groupe.js quelque soit le naviguateur
+    */
+    wp_register_script( 'manip_groupe',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'manip_groupe.js', 'jquery', '1.0');
+    wp_localize_script( 'manip_groupe', 'cjm_object',
+         array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'site_url_js' => get_site_url(), 'logout_link' => wp_logout_url() , "is_connected" => is_user_logged_in(), "current_lang" => $_GET['lang']) );
+    wp_enqueue_script( 'manip_groupe' );
+    /*
+    * Ajout feuille de style ie.css et script ie.js pour Internet Explorer avec version inférieur à 10
+    */
+    wp_enqueue_style( 'my-theme-ie',get_site_url()."/wp-content/themes/business-leader-child/ie.css");
+    wp_register_script( 'ie_js',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'ie.js', 'jquery', '1.0');
+    $wp_scripts->add_data( 'ie_js', 'conditional', 'lt IE 10' );
+    wp_enqueue_script( 'ie_js' );
+    $wp_styles->add_data( 'my-theme-ie', 'conditional', 'lt IE 10' );  
 }
 
 add_action( 'wp_enqueue_scripts', 'cjm_enqueue_scripts');

@@ -1,7 +1,8 @@
-
-
 jQuery(document).ready(function($) { 
 var loginbox = $('#login-box');
+
+
+
 /*
 * Fonction qui sert au bootstrap, à chaque redimensionnement de la page 
 */
@@ -212,6 +213,10 @@ $(".annul_resa_form").submit(function(){
       }); 
       return false;
 
-  });  
-
+  }); 
+  
+	// document.querySelector( "#nav-toggle" )
+ //  .addEventListener( "click", function() {
+ //    this.classList.toggle( "active" );
+ //  });
 });

@@ -23,6 +23,48 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	color:#000;
 
 }
+/* test */
+#content{
+	background-image:url(images/backgroundsidebarre.png);
+}
+#nav-toggle { position: absolute; top:0; }
+
+#nav-toggle { cursor: pointer; padding: 10px 35px 16px 0px; }
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: black;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#nav-toggle span:before {
+  top: -10px; 
+}
+#nav-toggle span:after {
+  bottom: -10px;
+}
+
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+  transition: all 500ms ease-in-out;
+}
+#nav-toggle.active span {
+  background-color: transparent;
+}
+#nav-toggle.active span:before, #nav-toggle.active span:after {
+  top: 0;
+}
+#nav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+  transform: rotate(-45deg);
+}
+/* ------ */
+
+
 *{
   list-style-type: none;  
 }
@@ -42,10 +84,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 #primary{
 	opacity:0;
 }
-
 #secondary{
-	width:0px;
-	background-color:#E9EAED;
+	background-image: url(images/backgroundsidebarre.png);
 }
 .croix_ferm {
     background-color: #000;
@@ -846,6 +886,8 @@ figure{
 	transform : scale(1);
 	transition: all 0.5s;
 }
+
+
 /* Menu effets 
 #menu-menu-principal:hover > a{
 	transform : translateY(-2px);
@@ -867,7 +909,7 @@ a img {
 
 /* Menu retracté plus tard ! */
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 760px) {	
 	#masthead
 	{
     top:46px;
