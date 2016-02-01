@@ -17,8 +17,31 @@
 	    }
 		?>
 		<header class="entry-header">
-			<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+			<?php 
 
+			//gestion affichage voyages et escapades
+			$post_type = get_post_type();
+			 if($post_type == 'reservation'){
+			 	$post_id = get_the_ID();
+			 	$etat_resa = get_post_custom_values('_etat_resa', $post_id);
+			 	if($etat_resa[0] == 'ouvert'){
+			 		$etat = 'Ouvert';
+			 		$span_id = 'span_ouv';
+			 	}else if($etat_resa[0] == 'cloture'){
+	                $etat = 'Cloturé';
+	                $span_id = 'span_clot';
+			 	}else if($etat_resa[0] == 'file_attente'){
+			 		$etat = 'Inscriptions en file d\'attente';
+	                $span_id = 'span_filat';
+			 	}
+			 	the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), ' - <span id="'.$span_id.'">'.$etat.'</span></a></h1>' ); 
+			 }else{
+			 	the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); 
+
+
+			 }
+			
+			?>
 			<?php if ( 'post' == get_post_type() ) : ?>
 			<div class="entry-meta">
 				<?php bus_leader_posted_on(); ?>

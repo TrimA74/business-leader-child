@@ -5,6 +5,117 @@
 //   $user = wp_get_current_user();
 //   echo json_encode($user);
 // }
+
+session_start();
+
+
+function traitement_formulaire_update() {
+	if (isset($_POST['first_name']) &&
+		isset($_POST['last_name']) &&
+		isset($_POST['tel_profil']) &&
+		isset($_POST['adresse_update']) &&
+		isset($_POST['ville_profil']) &&
+		isset($_POST['ancienmdp_profil']) &&
+		isset($_POST['pass1']) &&
+		isset($_POST['pass2']) &&
+		isset($_POST['codepostal_profil'])) {
+			
+		$_SESSION['fn']='';
+		$_SESSION['ln']='';
+		$_SESSION['tel']='';
+		$_SESSION['adresse']='';
+		$_SESSION['ville']='';
+		$_SESSION['cp']='';
+		$_SESSION['pass']='';
+			
+		if (!empty($_POST['first_name'])){
+			
+			$fn=$_POST['first_name'];
+			$Syntaxename="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
+			if (preg_match($Syntaxename, $fn)){
+					update_user_meta(get_current_user_id(), first_name, esc_attr($fn));
+			}
+			else{
+				$_SESSION['fn'] = 'true';
+			}
+		
+			
+		}
+		if (!empty($_POST['last_name'])){
+			
+			$ln=$_POST['last_name'];
+			$Syntaxelastname="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
+			if (preg_match($Syntaxelastname, $ln)){
+					update_user_meta(get_current_user_id(), last_name, esc_attr($ln));
+			}
+			else{
+				$_SESSION['ln'] = 'true';
+			}
+			
+		}
+		if(!empty($_POST['tel_profil'])){
+			$tel=$_POST['tel_profil'];
+			$Syntaxetel="#^0[0-9]([ .-]?[0-9]{2}){4}$#";
+			if (preg_match($Syntaxetel, $tel)){
+				update_user_meta(get_current_user_id(), tel, esc_attr($tel));
+			}
+			else{
+				$_SESSION['tel'] = 'true';
+			}
+			
+		}
+		if(!empty($_POST['adresse_update'])){
+			$adresse=$_POST['adresse_update'];
+			$Syntaxeadresse="#[a-z0-9_]+#";
+			if (preg_match($Syntaxeadresse, $adresse)){
+				update_user_meta(get_current_user_id(), adresse, esc_attr($adresse));
+			}
+			else{
+				$_SESSION['adresse'] = 'true';
+			}
+		}
+		if(!empty($_POST['ville_profil'])){
+			$ville=$_POST['ville_profil'];
+			$Syntaxeville="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
+			if (preg_match($Syntaxeville, $ville)){
+				update_user_meta(get_current_user_id(), ville, esc_attr($ville));
+			}
+			else{
+				$_SESSION['ville'] = 'true';
+			}
+			
+		}
+		if(!empty($_POST['codepostal_profil'])){
+			$cp=$_POST['codepostal_profil'];
+			$Syntaxecp="#^[0-9]{5}$#";
+			if (preg_match($Syntaxecp, $cp)){
+				update_user_meta(get_current_user_id(), cp, esc_attr($cp));
+			}
+			else{
+				$_SESSION['cp'] = 'true';
+			}
+			
+		}
+		if(!empty($_POST['ancienmdp_profil']) && 
+		   !empty($_POST['pass1']) && 
+		   !empty($_POST['pass2'])){
+			
+			$ancienmdp=/*get_user_meta(get_current_user_id(),*/ wp_get_current_user()->user_pass/*, true )*/;
+      $_SESSION['pass'] = wp_get_current_user()->user_pass;
+			$recupmdpform=$_POST['ancienmdp_profil'];
+			/*if(wp_check_password($recupmdpform, $ancienmdp, get_current_user_id())){
+		
+					$_SESSION['pass'] = 'true';
+			}*/
+		}
+		
+		
+	}
+}
+
+add_action( 'template_redirect', 'traitement_formulaire_update' );
+
+
 function admin_enqueue_scripts () {
   wp_register_script( 'admin_js',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'admin.js', 'jquery', '1.0');
   wp_enqueue_script( 'admin_js' );
@@ -124,8 +235,8 @@ function create_user_from_registration($cfdata) {
                 'user_login' => $insmail,
                 'user_email' => $insmail,
                 'user_pass' =>  $password,
-                'first_name' => $insprenom,
-                'last_name' => $insname
+                'first_name' => $insname,
+                'last_name' => $insprenom
             );
             $user_id = wp_insert_user( $userdata );
             if ( !is_wp_error($user_id) ) {
@@ -349,3 +460,13 @@ add_action( 'admin_bar_menu', 'custom_adminbar_menu', 75 );
 25 = After the My Sites menu
 100 = End of menu
 */
+
+/*Articles protégés => privés*/
+add_filter('protected_title_format', 'GkProtected');
+function GkProtected($title) {
+       return 'Privé : %s';
+}
+
+
+
+

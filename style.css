@@ -23,10 +23,64 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	color:#000;
 
 }
-/* test */
-#content{
-	background-image:url(images/backgroundsidebarre.png);
+
+/*CSS Mes réservations*/
+#tab_mesreservs th, #tab_mesreservs td{
+	text-align : center;
+	border-color : lightblue;
 }
+
+#voir {
+	margin-top: 0px;
+}
+
+#profiltable, #comptetable{
+	margin-left:1%;
+	margin-right:1%;
+	border:none;
+	width: inherit;
+	display:inline-block;
+	
+}
+
+#buttonenregistrer{
+	margin-left:-40%;
+	font-size:100%;
+}
+
+#buttonenregistrer:hover{
+	color:lightblue;
+	border:none;
+}
+
+#compteright, #profilleft{
+	display:inline-block;
+	margin-left:10%;
+}
+
+
+#profiltable th, #profiltable td, #comptetable th, #comptetable td{
+	border:none;
+	background-color:white;
+}
+
+#tab_mesreservs {
+	padding-left : 1%;
+	padding-right : 1%;
+	border-color : white;
+}
+
+.aligntitre {
+	padding-left : 1%;
+}
+
+#tab_mesreservs th {
+	background-color : rgba(173,216,230,0.5);
+}
+
+
+
+
 #nav-toggle { position: absolute; top:0; }
 
 #nav-toggle { cursor: pointer; padding: 10px 35px 16px 0px; }
@@ -62,8 +116,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 #nav-toggle.active span:after {
   transform: rotate(-45deg);
 }
-/* ------ */
-
 
 *{
   list-style-type: none;  
@@ -103,13 +155,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color:black;
   cursor:pointer;
 }
-#croixfermeture:hover{
+.croixfermeture:hover{
 	background-color:lightblue;
 	color:black;
 	cursor:pointer;
 }
 
-#croixfermeture {
+.croixfermeture {
+  z-index: 200;
 	background-color: #000;
 	color: #FFF;
 	text-align: right;
@@ -166,7 +219,7 @@ cursor : wait;
 #cboxLoadedContent{
   height : 640px;
   width : 900px;
-  position : fixed;
+  /*position : fixed;*/
   z-index:5000;
   font-size:14px;
 }
@@ -244,18 +297,7 @@ button:hover{
 	font-family: "Helvetica";
 }
 /*css reservation*/
-.resa_div{
-  border : 2px solid orange;
-  margin : 85px;
-  padding : 20px;
-  width : 400px;
-}
-.annul_resa_div{
-  border : 2px solid orange;
-  margin : 85px;
-  padding : 20px;
-  width : 400px;
-}
+
 .loginbox {
   position: fixed;
   z-index: 2000;
@@ -324,7 +366,7 @@ p{
 }
 
 @media all and (max-width: 1280px) {
-  #croixfermeture{
+  .croixfermeture{
 	margin-left: 310px;
 	left: 562px;
 	}
@@ -431,7 +473,7 @@ p{
 	  top:65px;
   }
    
-   #croixfermeture{
+   .croixfermeture{
 	margin-left: 310px;
 	left: 163px;
 	}
@@ -444,9 +486,9 @@ p{
 		right:30px;
 		bottom:240px;
    }
-   .sub-menu{
-	   top:70px;
-   }
+ 
+
+
    
    /*#site-navigation{
 	   height: 70px;
@@ -567,7 +609,7 @@ p{
 }
 
 @media all and (max-width: 500px){
-	 #croixfermeture{
+	 .croixfermeture{
 	margin-left: 323px;
 	left: 0px;
 	}
@@ -668,7 +710,7 @@ p{
 		right:20px;
 	}
 	
-	#croixfermeture{
+	.croixfermeture{
 	margin-left: 260px;
 	}
 		
@@ -758,7 +800,7 @@ p{
   font-family: Verdana;
 }
 
-input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], textarea {
+input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"],input[type="tel"], textarea {
     padding: 0.5rem 1rem;
     border: 2px solid lightblue;
     background-clip: padding-box;
@@ -1058,10 +1100,7 @@ a img {
     text-transform: uppercase;
     border-top: 1px solid #E3E3E3;
 }
-.idtitrenoIns{
-  text-align: center;
-  color: red;
-}
+
 
 
 
@@ -1085,3 +1124,24 @@ a img {
 .entry-header {
   position:inherit;
 }
+
+/*footer site*/
+.site-info{
+color: lightblue;}
+
+.site-footer{
+}
+
+
+/*Couleur titre réservations*/
+#span_clot{
+   color : #C60800;
+}
+#span_ouv{
+  color : #7FDD4C;
+}
+#span_filat{
+  color :orange;
+}
+
+

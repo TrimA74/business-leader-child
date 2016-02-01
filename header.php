@@ -17,9 +17,9 @@
 
 <?php wp_head();?>
 <?php 
-if( !current_user_can( 'manage_options' ) ) {
+//if( !current_user_can( 'manage_options' ) ) {
 ?>
-<script>
+<!--<script>
 	function clickIE()
 		{
 			if (document.all) {
@@ -42,9 +42,9 @@ if( !current_user_can( 'manage_options' ) ) {
 			document.oncontextmenu=clickIE;
 			}
 		document.oncontextmenu=new Function("return false");
-</script>
+</script>-->
 <?php
-}
+/*}*/
 ?>
 
 </head>

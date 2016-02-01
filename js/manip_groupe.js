@@ -1,6 +1,33 @@
-jQuery(document).ready(function($) { 
-var loginbox = $('#login-box');
+jQuery(document).ready(function($) {
+  
+	$(".ipt_modif_resa_form").bind('keyup mouseup', function () {         
+    });
 
+  function get_logged_user() {
+       var data = {
+      'action': 'get_logged_user'
+      };
+      return Promise.resolve(jQuery.post(cjm_object.ajax_url, data,function (data) {  
+        },"json"));
+    }
+
+	get_logged_user().then(function (data) {
+		console.log(data);
+	});
+
+
+var loginbox = $('#login-box');
+$("#gwolle_gb").prepend('<button style="text-align:center;" param="livreor" type="button" id="con_resa" value="se connecter">Connectez vous pour écrire un message</button>');
+if(cjm_object.is_connected==0)
+{
+	$("#gwolle_gb_write_button").hide();
+	$("#con_resa").show();
+	$("#ins_resa").show();
+}
+else {
+	$("#con_resa").hide();
+	$("#ins_resa").hide();
+}
 
 
 /*
@@ -36,8 +63,6 @@ $(".category-list").hide();
 $(".post-navigation").hide();
 $("#wp-admin-bar-adminbar_gc_menu").remove();
 
-
-
 loginbox.hide();
 if($(".wpcf7-mail-sent-ok").is(":visible")){
 	$("#cboxLoadedContent").empty();
@@ -47,13 +72,7 @@ if($(".wpcf7-mail-sent-ok").is(":visible")){
 $('body').css('transform','rotate(45)');
 $('#btnIns, #ins_resa').click(function(){
 		$('#lightboxIns').css('display','block');
-	})
-	
-$('#croixfermeture').click(function(){
-	$('#cboxOverlay').css('display','none');
-	$('#cboxContent').css('display','none');
-	location.reload();
-});
+	});
 $('#btnIns, #ins_resa').click(function(){
 	$('#cboxOverlay').css('display','block');
 	$('#cboxContent').css('display','block');
@@ -65,12 +84,15 @@ if(cjm_object.is_connected==1)
 			$('.div_drapeaux').css('top','48px');
 			$('.div_drapeaux').css('position','absolute');
 			$(".site-header").animate({top: '46px'}, "slow");
+			$('#wp-admin-bar-custom_menu').css('display','block');
+			$('#wp-admin-bar-custom_menu').css('marginRight','20px');
 		}
 		else {
 			$("#masted").animate({top: '32px'}, "slow");
 			$(".site-header").animate({top: '32px'}, "slow");
 			$('.div_drapeaux').css('top','38px');
 			$('.div_drapeaux').css('position','fixed');
+			
 		}
 	$(window).on('windowResize', function() {
 		if($(window).width()<=780)
@@ -78,12 +100,15 @@ if(cjm_object.is_connected==1)
 			$('.div_drapeaux').css('top','48px');
 			$('.div_drapeaux').css('position','absolute');
 			$(".site-header").animate({top: '46px'}, "slow");
+			$('#wp-admin-bar-custom_menu').css('display','block');
+			$('#wp-admin-bar-custom_menu').css('marginRight','10px');
 		}
 		else {
 			$("#masted").animate({top: '32px'}, "slow");
 			$(".site-header").animate({top: '32px'}, "slow");
 			$('.div_drapeaux').css('top','38px');
 			$('.div_drapeaux').css('position','fixed');
+			
 		}
 	});
 	$("[name='connexion_button_boxopen']").html('Déconnexion');
@@ -100,7 +125,6 @@ else{
 		/* interdire enregistre */
 	}
 $('.page-header').hide();
-
 
 
 $("[name='connexion_button_boxopen'], #con_resa").click(function(){	
@@ -164,59 +188,207 @@ $('#croix_login').click(function(){
 
 $("form-lightbox-1").detach().prependTo("#cboxClose");
 $("form-lightbox-1").prependTo("#cboxClose");
-/*
-* Envoie du formulaire en AJAX sur ajaxController.php pour réserver un voyage/escapade
-*
-*/
-$(".resa_form").submit(function(){
-        
-      $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : "https://srv-prj.iut-acy.local/jumelage/Best_wordpress_ever/wordpress/wp-content/plugins/cjm/ajaxController.php",
-        data : $(this).serialize(),
-        success : function(msg){         
-             switch(msg){
-             	case 1 : $("#resa_div_id").empty().html("Votre Inscription a bien été prise en compte !").css('color','green');
-             			break;
-             	case 2 : $("#resa_div_id").html("Veuillez réserver au moins une place !").css('color','bleue');
-             	
-             	default :$("#resa_div_id").append("Veuillez réserver au moins une place !").css('color','red');
-             			break; 
-             }   
-        }
-        
-      }); 
-      return false;
+$('.croixfermeture').click(function(){
+	$('#cboxOverlay').css('display','none');
+	$('#cboxContent').css('display','none');
+	location.reload();
+});
 
-  });
-/*
-* Envoie du formulaire en AJAX sur ajaxController.php pour annuler une réservation
-*
-*/
-$(".annul_resa_form").submit(function(){
-        
-      $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : "https://srv-prj.iut-acy.local/jumelage/Best_wordpress_ever/wordpress/wp-content/plugins/cjm/ajaxController.php",
-        data : $(this).serialize(),
-        success : function(msgd){        
-             switch(msgd){
-             	case 1 : $(".annul_resa_div").empty().html("Votre réservation a bien été annulée ! ").css('color','green');
-             			break;
-             	default : $(".annul_resa_div").append("Veuillez contacter l'administrateur du site").css('color','red');
-             			break; 
-             }   
-        }
-        
-      }); 
-      return false;
+ 
 
-  }); 
+  //cjm_object.admin_url
   
 	// document.querySelector( "#nav-toggle" )
  //  .addEventListener( "click", function() {
  //    this.classList.toggle( "active" );
  //  });
+ 
+ // sidebarrebackgund
+ var hauteufenetre = $("#content").height();
+ $("#secondary").css('width','342px');
+ $("#secondary").css('height',hauteufenetre+'px');
+
+
+	// Cocher décocher toutes les newsletters
+	var bool=0;
+		$("#form-wysija-6 p").eq(1).click(function(){
+			if(bool==0){
+			$(".wysija-checkbox-paragraph label input").attr('checked', true);
+			bool=1;
+			}
+			else{
+			$(".wysija-checkbox-paragraph label input").attr('checked', false);
+			bool=0;
+			}
+		});
+	
+
+	
 });
+
+// Regex profil
+
+function surligne(champ, erreur)
+	{
+	   if(erreur)
+		  champ.style.border = "medium solid red";
+	   else
+		  champ.style.border = "medium solid green";
+	}
+	
+	function verifPrenom(champ)
+	{
+		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:,\/!,;.?+]/;
+	   if(verifField(champ.value,document.getElementById("first_name"),regex) == true)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifNom(champ)
+	{
+		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:,\/!,;.?+]/;
+	   if(verifField(champ.value,document.getElementById("last_name"),regex) == true)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	
+	function verifTel(champ)
+	{
+		var regex = /[a-zA-Z?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
+	   if(verifField(champ.value,document.getElementById("tel_profil"),regex) == true || champ.value.length > 10 || champ.value.length < 10)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifAdresse(champ)
+	{
+		var regex = /[?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!;.?+]/;
+	   if(verifField(champ.value,document.getElementById("adresse_update"),regex) == true)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifCP(champ)
+	{
+		var regex = /[a-zA-Z?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
+	   if(verifField(champ.value,document.getElementById("codepostal_profil"),regex) == true || champ.value.length > 5 || champ.value.length < 5)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifVille(champ)
+	{
+		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
+	   if(verifField(champ.value,document.getElementById("ville_profil"),regex) == true)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifAncienMDP(champ)
+	{
+	   if(champ.value.length < 2 || champ.value.length > 25)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifNewMDP(champ)
+	{
+	   if(champ.value.length < 2 || champ.value.length > 25)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifNewMDP2(champ)
+	{
+	   if(champ.value.length < 2 || champ.value.length > 25)
+	   {
+		  surligne(champ, true);
+		  return false;
+	   }
+	   else
+	   {
+		  surligne(champ, false);
+		  return true;
+	   }
+	}
+	
+	function verifField(chaine,phrase,regex){	
+	
+
+	if(regex.test(chaine) == false){
+		return false;		
+	}else{
+		return true;
+	}
+	}
+
+	
+	function verifForm(f)
+	{
+	   // var pseudoOk = verifPrenom(f.identite);
+	   /*if(pseudoOk && mailOk && sujetOk && messageOk){
+		  document.getElementById("validation_formulaire").innerHTML = "Votre message a bien été pris en compte et sera traité dans les plus brefs délais.";
+		  return true;
+	   }else
+	   {
+		  document.getElementById("validation_formulaire").innerHTML = "Veuillez vérifier les champs du formulaire.";
+		  return false;
+	   }*/
+	}
