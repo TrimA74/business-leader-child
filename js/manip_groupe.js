@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  
+
 	$(".ipt_modif_resa_form").bind('keyup mouseup', function () {         
     });
 
@@ -194,20 +194,37 @@ $('.croixfermeture').click(function(){
 	location.reload();
 });
 
- $(".ipt_modif_resa_form").bind('keyup mouseup', function () {
- 	var calcul_prix = 4;
- 	if($(this).attr("name") == 'pl_adulte'){
-       calcul_prix=1;
- 	}else if($(this).attr("name") == 'pl_enfant'){
-       calcul_prix=2;
- 	}else if($(this).attr("name") == 'pl_adulte_upd'){
-       calcul_prix=3;
- 	}else if($(this).attr("name") == 'pl_enfant_upd'){
-       calcul_prix=4;
- 	}
-    
 
-    $("#span_prix").append(calcul_prix);         
+//Affichage du prix dynamique
+
+ $(".ipt_modif_resa_form").bind('keyup mouseup', function () {
+ 	$("#span_prix").empty(); 
+    
+ 	
+    console.log("test");
+ 	var role_user = $("#ipt_role_user").attr("value");
+ 	var prix_adt = $("#ipt_prix_adulte").attr("value");
+ 	var prix_enf = $("#ipt_prix_enfant").attr("value");
+ 	var prix_adh = $("#ipt_prix_adherent").attr("value");
+ 	var prix = 0;
+
+ 	if($(this).attr("name") == 'pl_adulte' || $(this).attr("name") == 'pl_enfant'){
+ 		 if(role_user == 1){
+ 		 	prix_adt = prix_adh;
+ 		 }
+
+ 		 prix = prix_adt * $("#ipt_place_adt").attr("value") + prix_enf * $("#ipt_place_enf").attr("value");
+ 	}
+
+ 	if($(this).attr("name") == 'pl_adulte_upd' || $(this).attr("name") == 'pl_enfant_upd'){
+ 		 
+ 		 if(role_user == 1){
+ 		 	prix_adt = prix_adh;
+ 		 }
+ 		 prix = prix_adt * $("#iptupd_place_adt").attr("value") + prix_enf * $("#iptupd_place_enf").attr("value");
+ 	}
+
+    $("#span_prix").append(prix.toFixed(2));         
 });
 
   //cjm_object.admin_url
