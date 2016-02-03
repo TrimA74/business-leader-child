@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying all single posts.
+ * The Template for displaying all custom post type 'Reservation'.
  *
  * @package Business Leader
  */
@@ -13,8 +13,9 @@ get_header();
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<?php
-			    
                 $etat_resa1 = get_post_custom_values('_etat_resa', $post_id);
+                   $nbplace = get_post_custom_values('_nb_place', $post_id);
+				echo "<p id='nb_place_p_id'>Nombre de places disponibles : <span id='nb_place_span_id'>".$nbplace[0]."</span></p>";
                 
 			 if(!is_user_logged_in()){
 				
@@ -39,7 +40,7 @@ get_header();
 					comments_template();
 				endif;
 
-			
+			     
 				if(is_user_logged_in()){
 				global $wpdb;
 				$post_id = get_the_ID();
@@ -47,6 +48,10 @@ get_header();
 				$id_user = $current_user->ID;
 				$nbplace = get_post_custom_values('_nb_place', $post_id);
 				
+				wp_localize_script( 'cjm_price', 'ajax_price_object',
+			        array( 'prix_adulte' => , 'prix_adherent' => , 'prix_enfant' =>, 'role_adherent'=>));
+				}
+             
 				
 				$query = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}reservation WHERE id_evenement = $post_id AND id_participant = $id_user");
 				$etat_resa = get_post_custom_values('_etat_resa', $post_id);
@@ -76,7 +81,6 @@ get_header();
 							echo '</br>';
 							echo '<form class="annul_resa_form">';
 							echo '<input name="post_id_annul" type="hidden" value="'.$post_id.'"/>';
-							echo '<input name="user_id_annul" type="hidden" value="'.$id_user.'"/>';
 							echo '<input class="sub_annul_reza" type="submit" name="resa_submit2" value="Annuler ma réservation"/>';
 							echo ' </form>';
 							echo '</div>';
@@ -96,7 +100,6 @@ get_header();
 								echo '<label for ="pl_enfant_upd">Place Enfants  </label>';
 								echo '<input class="ipt_modif_resa_form" type="number" name="pl_enfant_upd" min="0" max="'.$nbplacenew.'"  value="'.esc_attr($query[0]->nbplace_enf).'"/>';
 								echo '<input name="post_id_upd" type="hidden" value="'.$post_id.'"/>';
-								echo '<input name="user_id_upd" type="hidden" value="'.$id_user.'"/>';
 								echo '<input id="ipt_sub_modif_reza" type="submit" id="resa_submit_upd" value="Modifier ma réservation"/>';
 						  		echo '</div>';
 						  	echo ' </form>';
@@ -128,7 +131,7 @@ get_header();
 							    echo '<p>Nombre de places disponibles : '.$nombre_place[0].'</p>';
 							    
 						    }
-
+                            echo '<p>Prix : <span id="span_prix"></span> €</p>';
 							echo '<form class="resa_form">';
 							    echo '<div class="div_modif_resa_form">';
 								echo '<label class="lbl_resa_div" for="pl_adulte">Place Adultes  </label>';
