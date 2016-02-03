@@ -47,11 +47,22 @@ get_header();
 				$current_user = wp_get_current_user();
 				$id_user = $current_user->ID;
 				$nbplace = get_post_custom_values('_nb_place', $post_id);
+				 $current_user = wp_get_current_user()->caps;
+                $prix_adt = get_post_custom_values('_tarif_adulte', $post_id);
+                $prix_enf = get_post_custom_values('_tarif_enfant', $post_id);
+                $prix_adh = get_post_custom_values('_tarif_adherent', $post_id);
+			    
+			               
 				
-				wp_localize_script( 'cjm_price', 'ajax_price_object',
-			        array( 'prix_adulte' => , 'prix_adherent' => , 'prix_enfant' =>, 'role_adherent'=>));
-				}
+				echo '<input type="hidden" id="ipt_role_user" value="'.$current_user['adherent_user'].'"/> ';
+				echo '<input type="hidden" id="ipt_prix_adulte" value="'.$prix_adt[0].'"/> ';
+				echo '<input type="hidden" id="ipt_prix_enfant" value="'.$prix_enf[0].'"/> ';
+				echo '<input type="hidden" id="ipt_prix_adherent" value="'.$prix_adh[0].'"/> ';
+
+
              
+               
+               
 				
 				$query = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}reservation WHERE id_evenement = $post_id AND id_participant = $id_user");
 				$etat_resa = get_post_custom_values('_etat_resa', $post_id);
@@ -73,9 +84,7 @@ get_header();
 							echo '<p>Nombre de places adultes : '.$query[0]->nbplace.'</p>';
 							echo '<p>Nombre de places enfants : '.$query[0]->nbplace_enf.'</p>';
 
-							if($query[0]->paiement == 0){
-
-						
+						if($query[0]->paiement == 0){	
 							echo '<button  id="resa_modif"/>Modifier ma réservation</button>';
 							echo '</br>';
 							echo '</br>';
@@ -92,13 +101,14 @@ get_header();
 						    }
 							echo '</br>';
 							$nbplacenew = $nbplace[0]+$query[0]->nbplace+$query[0]->nbplace_enf;
+							echo '<p>Prix : <span id="span_prix">'.$query[0]->prix_total.'</span> €</p>';
 							echo '<form class="modif_resa_form">';
 							    echo '<div class="div_modif_resa_form">';
 								echo '<label for ="pl_adulte_upd">Place Adultes  </label>';
-								echo '<input class="ipt_modif_resa_form" type="number" name="pl_adulte_upd" min="0" max="'.$nbplacenew.'" value="'.esc_attr($query[0]->nbplace).'"/>';
+								echo '<input id="iptupd_place_adt" class="ipt_modif_resa_form" type="number" name="pl_adulte_upd" min="0" max="'.$nbplacenew.'" value="'.esc_attr($query[0]->nbplace).'"/>';
 								echo '<div class="div2_modif_resa_formstyle">      </div>';
 								echo '<label for ="pl_enfant_upd">Place Enfants  </label>';
-								echo '<input class="ipt_modif_resa_form" type="number" name="pl_enfant_upd" min="0" max="'.$nbplacenew.'"  value="'.esc_attr($query[0]->nbplace_enf).'"/>';
+								echo '<input id="iptupd_place_enf" class="ipt_modif_resa_form" type="number" name="pl_enfant_upd" min="0" max="'.$nbplacenew.'"  value="'.esc_attr($query[0]->nbplace_enf).'"/>';
 								echo '<input name="post_id_upd" type="hidden" value="'.$post_id.'"/>';
 								echo '<input id="ipt_sub_modif_reza" type="submit" id="resa_submit_upd" value="Modifier ma réservation"/>';
 						  		echo '</div>';
@@ -131,14 +141,14 @@ get_header();
 							    echo '<p>Nombre de places disponibles : '.$nombre_place[0].'</p>';
 							    
 						    }
-                            echo '<p>Prix : <span id="span_prix"></span> €</p>';
+                            echo '<p>Prix : <span id="span_prix">0.00</span> €</p>';
 							echo '<form class="resa_form">';
 							    echo '<div class="div_modif_resa_form">';
 								echo '<label class="lbl_resa_div" for="pl_adulte">Place Adultes  </label>';
-								echo '<input class="ipt_modif_resa_form" type="number" name="pl_adulte" min="0" max="'.$max.'"  placeholder="0"/>';
+								echo '<input id="ipt_place_adt" class="ipt_modif_resa_form" type="number" name="pl_adulte" min="0" max="'.$max.'"  placeholder="0"/>';
 								echo '<div class="div2_modif_resa_formstyle">      </div>';
 								echo '<label class="lbl_resa_div" for="pl_enfant">Place Enfants  </label>';
-								echo '<input class="ipt_modif_resa_form" type="number" name="pl_enfant" min="0" max="'.$max.'"  placeholder="0"/>';
+								echo '<input id="ipt_place_enf" class="ipt_modif_resa_form" type="number" name="pl_enfant" min="0" max="'.$max.'"  placeholder="0"/>';
 								echo '<input name="post_id" type="hidden" value="'.$post_id.'"/>';
 								echo '<input class="ipt_resa_form" type="submit" name="resa_submit"/>';
 						  		echo '</div>';

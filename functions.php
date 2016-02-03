@@ -131,6 +131,8 @@ function cjm_enqueue_scripts() {
     wp_localize_script( 'manip_groupe', 'cjm_object',
          array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'site_url_js' => get_site_url(), 'logout_link' => wp_logout_url() , "is_connected" => is_user_logged_in(), "current_lang" => $_GET['lang']) );
     wp_enqueue_script( 'manip_groupe' );
+
+    
     /*
     * Ajout feuille de style ie.css et script ie.js pour Internet Explorer avec version inférieur à 10
     */
