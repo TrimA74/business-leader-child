@@ -9,7 +9,29 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+
+		<?php 
+		 $post_type = get_post_type();
+		 if($post_type == 'reservation'){
+		 	$post_id = get_the_ID();
+		 	$etat_resa = get_post_custom_values('_etat_resa', $post_id);
+		 	if($etat_resa[0] == 'ouvert'){
+		 		$etat = 'Ouvert';
+		 		the_title( '<h1 class="entry-title">', ' - <span id="span_ouv">'.$etat.'</span></h1>' ); 
+		 	}else if($etat_resa[0] == 'cloture'){
+                $etat = 'Cloturé';
+                the_title( '<h1 class="entry-title">', ' - <span id="span_clot">'.$etat.'</span></h1>' ); 
+		 	}else if($etat_resa[0] == 'file_attente'){
+		 		$etat = 'Inscriptions en file d\'attente';
+                the_title( '<h1 class="entry-title">', ' - <span id="span_filat">'.$etat.'</span></h1>' ); 
+		 	}
+		 }else{
+		 	the_title( '<h1 class="entry-title">', '</h1>' ); 
+		 }
+		
+
+
+		?>
 
 		<div class="entry-meta">
 			<?php bus_leader_posted_on(); ?>
