@@ -1145,3 +1145,12 @@ color: lightblue;}
 }
 
 
+/*balises titres resa*/
+
+#nb_place_p_id{
+  text-align: center;
+}
+#nb_place_span_id{
+  font-weight: bold;
+  color : orange;
+}

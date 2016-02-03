@@ -194,7 +194,21 @@ $('.croixfermeture').click(function(){
 	location.reload();
 });
 
- 
+ $(".ipt_modif_resa_form").bind('keyup mouseup', function () {
+ 	var calcul_prix = 4;
+ 	if($(this).attr("name") == 'pl_adulte'){
+       calcul_prix=1;
+ 	}else if($(this).attr("name") == 'pl_enfant'){
+       calcul_prix=2;
+ 	}else if($(this).attr("name") == 'pl_adulte_upd'){
+       calcul_prix=3;
+ 	}else if($(this).attr("name") == 'pl_enfant_upd'){
+       calcul_prix=4;
+ 	}
+    
+
+    $("#span_prix").append(calcul_prix);         
+});
 
   //cjm_object.admin_url
   
