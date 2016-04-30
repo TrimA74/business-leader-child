@@ -1,23 +1,25 @@
 jQuery(document).ready(function($) {
+$(".header-image").eq(0).removeClass('header-image-overlay').attr("style","background-image: url('http://meythet-capaci.com/wp-content/uploads/2016/03/bandeau.jpg')");
+var loginbox = $('#login-box');
+/*
+******** CACHE élements inutile du livre d'or
+*/
+$("#gwolle_gb_new_entry h3,#gwolle_gb_new_entry form,.gwolle_gb_author_name,.gwolle_gb_author_email").hide();
 
-	$(".ipt_modif_resa_form").bind('keyup mouseup', function () {         
+	$(".ipt_modif_resa_form").bind('keyup mouseup', function () {
     });
 
-  function get_logged_user() {
-       var data = {
-      'action': 'get_logged_user'
-      };
-      return Promise.resolve(jQuery.post(cjm_object.ajax_url, data,function (data) {  
-        },"json"));
-    }
+ //  function get_logged_user() {
+ //       var data = {
+ //      'action': 'get_logged_user'
+ //      };
+ //      return Promise.resolve(jQuery.post(cjm_object.ajax_url, data,function (data) {
+ //        },"json"));
+ //    }
 
-	get_logged_user().then(function (data) {
-		console.log(data);
-	});
-
-
-var loginbox = $('#login-box');
-$("#gwolle_gb").prepend('<button style="text-align:center;" param="livreor" type="button" id="con_resa" value="se connecter">Connectez vous pour écrire un message</button>');
+	// get_logged_user().then(function (data) {
+	// 	console.log(data);
+	// });
 if(cjm_object.is_connected==0)
 {
 	$("#gwolle_gb_write_button").hide();
@@ -31,31 +33,22 @@ else {
 
 
 /*
-* Fonction qui sert au bootstrap, à chaque redimensionnement de la page 
+* Fonction qui sert au bootstrap, à chaque redimensionnement de la page
 */
 $(window).resize(function() {
 if(this.resizeTO) clearTimeout(this.resizeTO);
 this.resizeTO = setTimeout(function() {
   $(this).trigger('windowResize');
-}, 500); 
+}, 500);
 });
-
 jQuery(window).load(function() {
-						  jQuery(".loader").fadeOut("1000");
-						  jQuery(".back_loader").fadeOut("1000");
-						});
-	/* à voir $("#cboxLoadedContent").removeAttr("style");
-	$("#cboxLoadedContent").css("width", '900px');
-	$("#cboxLoadedContent").css("overflow","hidden");
-	$("#cboxLoadedContent").css("height","640px");
+  jQuery(".loader").fadeOut("1000");
+  jQuery(".back_loader").fadeOut("1000");
+});
+/*
+****** ANIMATION CHARGEMENT DE LA PAGE (plus swag =) )
 */
-// $("#con_resa").click(function () {
-// loginbox.show();
-
-// });
-
 $("#secondary").animate({width: '342px'}, "slow");
-
 $("#primary").animate({opacity: '1'}, 1500);
 
 var current_url_deco = cjm_object.logout_link;
@@ -67,18 +60,25 @@ loginbox.hide();
 if($(".wpcf7-mail-sent-ok").is(":visible")){
 	$("#cboxLoadedContent").empty();
 	$("#cboxLoadedContent").html(".wpcf7-mail-sent-ok");
-
 }
 $('body').css('transform','rotate(45)');
-$('#btnIns, #ins_resa').click(function(){
+$('#btnins, #ins_resa').click(function(){
 		$('#lightboxIns').css('display','block');
+		$('#cboxOverlay').css('display','block');
+		$('#cboxContent').css('display','block');
+		console.log(window.innerWidth);
+		if(window.innerWidth<500){
+			$("#cboxLoadedContent").css('background-color','red');
+		}
 	});
-$('#btnIns, #ins_resa').click(function(){
-	$('#cboxOverlay').css('display','block');
-	$('#cboxContent').css('display','block');
-});
+/*
+****** SI QUELQU'UN EST CONNECTE
+*/
 if(cjm_object.is_connected==1)
 {
+	/*
+	**** GESTION POSITION DES DRAPEAUX
+	*/
 	if($(window).width()<=780)
 		{
 			$('.div_drapeaux').css('top','48px');
@@ -92,7 +92,7 @@ if(cjm_object.is_connected==1)
 			$(".site-header").animate({top: '32px'}, "slow");
 			$('.div_drapeaux').css('top','38px');
 			$('.div_drapeaux').css('position','fixed');
-			
+
 		}
 	$(window).on('windowResize', function() {
 		if($(window).width()<=780)
@@ -108,82 +108,90 @@ if(cjm_object.is_connected==1)
 			$(".site-header").animate({top: '32px'}, "slow");
 			$('.div_drapeaux').css('top','38px');
 			$('.div_drapeaux').css('position','fixed');
-			
+
 		}
 	});
-	$("[name='connexion_button_boxopen']").html('Déconnexion');
+	if(cjm_object.current_lang=='it'){
+		$("[name='connexion_button_boxopen']").html('Deconnessione');
+	}
+	else{
+		$("[name='connexion_button_boxopen']").html('Déconnexion');
+	}
 	$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
 	loginbox.hide();
 	$('.fl_box-1:button').hide();
-	
-
 }
 else{
-		$('.div_drapeaux').css('top','0px');
-		$("#masthead").animate({top: '0px'}, "slow");
-		$(".site-header").animate({top: '0px'}, "slow");
-		/* interdire enregistre */
-	}
+	$('.div_drapeaux').css('top','0px');
+	$("#masthead").animate({top: '0px'}, "slow");
+	$(".site-header").animate({top: '0px'}, "slow");
+	/* interdire enregistre */
+}
+/*
+Cache une header image sur le page d'événement
+*/
 $('.page-header').hide();
-
-
-$("[name='connexion_button_boxopen'], #con_resa").click(function(){	
-		  var isDisplay = $('#login-box').css('display');
-	        if (isDisplay=='block' || !$('#lwa_wp-submit').is(':hidden'))
-					{
-	            loginbox.hide();
-							if(!$('#lwa_wp-submit').is(':hidden'))
-							{
-								$("[name='connexion_button_boxopen']").html('Déconnexion');
-								$('.fl_box-1:button').hide();
-								$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
-							}
-	        }
-	        else
-					{
-						if($('#lwa_wp-submit').is(':hidden'))
-							{
-								$("[name='connexion_button_boxopen']").html('Connexion');
-							}
-						else
-							{
-									$("[name='connexion_button_boxopen']").html('Déconnexion');
-									loginbox.hide();
-									$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
-							}
-
-						var isDeco = $('#wp-logout').html(); // récup le contenu html du bouton se déconnecter
-						if (isDeco=="Déconnexion" && $('#wp-logout').is(":visible"))
-							{
-								loginbox.hide();
-							}
-						else
-							{
-		        	loginbox.show();
-		        	loginbox.addClass("loginbox");
-							}
-	        	
-	        	if(cjm_object.current_lang=='it')
-	        	{
-	        		$('.lwa-username-label label').text("Indirizzo mail");       
-	        	}
-	        			if(cjm_object.current_lang=='fr')
-	        	{
-	        		$('.lwa-username-label label').text("Adresse mail");
-	        	}
-	        	if($(this)[0].id=="con_resa")
-					{
-						$('.loginbox').css("top","40%"); $('.loginbox').css("right","50%");
-
-					}
-					else {
-						$('.loginbox').css("top","5vw"); $('.loginbox').css("right","0");
-					}
-	        }
-	});
-$('#login-box').append('<div id=\"croix_login\" class=\"croix_ferm\">x</div>');
+$("[name='connexion_button_boxopen'], #con_resa").click(function(){
+  var isDisplay = loginbox.css('display');
+    if (isDisplay=='block' || !$('#lwa_wp-submit').is(':hidden')){
+        loginbox.hide();
+		if(!$('#lwa_wp-submit').is(':hidden')){
+			if(cjm_object.current_lang=='it'){
+				$("[name='connexion_button_boxopen']").html('Deconnessione');
+			}
+			else{
+				$("[name='connexion_button_boxopen']").html('Déconnexion');
+			}
+			$('.fl_box-1:button').hide();
+			$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
+		}
+    }
+    else{
+		if($('#lwa_wp-submit').is(':hidden')){
+			if(cjm_object.current_lang=='it'){
+				$("[name='connexion_button_boxopen']").html('Connessione');
+				// <p id="connessione" style="margin-right:-30px;">Connessione</p>
+			}else{
+				$("[name='connexion_button_boxopen']").html('Connexion');
+			}
+		}
+		else {
+			if(cjm_object.current_lang=='it'){
+				$("[name='connexion_button_boxopen']").html('Deconnessione');
+			}
+			else{
+				$("[name='connexion_button_boxopen']").html('Déconnexion');
+			}
+			loginbox.hide();
+			$("[name='connexion_button_boxopen']").attr('onclick',"self.location.href='"+current_url_deco+"'");
+		}
+		var isDeco = $('#wp-logout').html(); // récup le contenu html du bouton se déconnecter
+		if (isDeco=="Déconnexion" || isDeco=="Deconnessione" && $('#wp-logout').is(":visible")){
+			loginbox.hide();
+		}
+		else {
+        	loginbox.show();
+        	loginbox.addClass("loginbox");
+        	if(event.target.id!="con_resa")
+        	{
+        		loginbox.removeClass("login_resa_phone");
+        	}
+		}
+    	if(cjm_object.current_lang=='it'){
+    		$('.lwa-username-label label').text("Indirizzo mail");
+    	}
+    	if(cjm_object.current_lang=='fr'){
+    		$('.lwa-username-label label').text("Adresse mail");
+    	}
+    	if($(this)[0].id=="con_resa")
+			{
+				$('.loginbox').addClass("login_resa_phone");
+			}
+    }
+});
+loginbox.append('<div id=\"croix_login\" class=\"croix_ferm\">x</div>');
 $('#croix_login').click(function(){
-	$('#login-box').hide();
+	loginbox.hide();
 });
 
 $("form-lightbox-1").detach().prependTo("#cboxClose");
@@ -198,10 +206,7 @@ $('.croixfermeture').click(function(){
 //Affichage du prix dynamique
 
  $(".ipt_modif_resa_form").bind('keyup mouseup', function () {
- 	$("#span_prix").empty(); 
-    
- 	
-    console.log("test");
+ 	$("#span_prix").empty();
  	var role_user = $("#ipt_role_user").attr("value");
  	var prix_adt = $("#ipt_prix_adulte").attr("value");
  	var prix_enf = $("#ipt_prix_enfant").attr("value");
@@ -217,32 +222,55 @@ $('.croixfermeture').click(function(){
  	}
 
  	if($(this).attr("name") == 'pl_adulte_upd' || $(this).attr("name") == 'pl_enfant_upd'){
- 		 
+
  		 if(role_user == 1){
  		 	prix_adt = prix_adh;
  		 }
  		 prix = prix_adt * $("#iptupd_place_adt").attr("value") + prix_enf * $("#iptupd_place_enf").attr("value");
  	}
 
-    $("#span_prix").append(prix.toFixed(2));         
+    $("#span_prix").append(prix.toFixed(2));
 });
 
   //cjm_object.admin_url
-  
+
 	// document.querySelector( "#nav-toggle" )
  //  .addEventListener( "click", function() {
  //    this.classList.toggle( "active" );
  //  });
- 
+
  // sidebarrebackgund
- var hauteufenetre = $("#content").height();
- $("#secondary").css('width','342px');
- $("#secondary").css('height',hauteufenetre+'px');
+ // var hauteufenetre = $("#content").outerHeight();
+ // if(window.innerWidth>980){
+ // 	if($("#primary").height()>1350){
+ // 		hauteufenetre = $("#primary").height()+120;
+ // 	}
+ // 	 else {
+ // 	first_aside = $("#secondary").children().eq(0)[0].clientHeight;
+ // 	if($("#secondary aside").length==1){
+ // 		first_aside = 672;
+ // 	}
+ // 	console.log(first_aside);
+ // 	second_aside =  $("#secondary").children().eq(1)[0].clientHeight;
+ // 	console.log(second_aside);
+ // 	 	hauteufenetre = first_aside+second_aside+200;
+ // 	console.log(hauteufenetre);
+ // 	 }
+ // }
+ // else {
+ // 	hauteufenetre = 1350;
+ // }
+ // $("#secondary").css('width','342px');
+
+ // $("#secondary").css('height',hauteufenetre+'px');
+ // if(window.innerWidth>980){
+ // $("#secondary").css('position','relative');
+ // }
 
 
 	// Cocher décocher toutes les newsletters
 	var bool=0;
-		$("#form-wysija-6 p").eq(1).click(function(){
+		$("#form-wysija-5 p").eq(1).click(function(){
 			if(bool==0){
 			$(".wysija-checkbox-paragraph label input").attr('checked', true);
 			bool=1;
@@ -252,21 +280,30 @@ $('.croixfermeture').click(function(){
 			bool=0;
 			}
 		});
-	
 
-	
+var url = window.location.search;
+var lang = url.substring(url.lastIndexOf("=")+1);
+
+if(lang =="it"){
+	$(".srp-widget-title").html("Articoli Recentemente");
+	$("#wysija-5 h1").html("Registrati per ricevere la nostra newsletter");
+	$(".wysija-checkbox-label").html("Seleziona uno o più Newsletters");
+}
+
+
+
 });
 
 // Regex profil
 
-function surligne(champ, erreur)
+	function surligne(champ, erreur)
 	{
 	   if(erreur)
-		  champ.style.border = "medium solid red";
+		  champ.style.border = "medium solid rgb(255, 89, 0)";
 	   else
-		  champ.style.border = "medium solid green";
+		  champ.style.border = "medium solid rgb(132, 212, 100)";
 	}
-	
+
 	function verifPrenom(champ)
 	{
 		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:,\/!,;.?+]/;
@@ -281,7 +318,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifNom(champ)
 	{
 		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:,\/!,;.?+]/;
@@ -296,8 +333,8 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
-	
+
+
 	function verifTel(champ)
 	{
 		var regex = /[a-zA-Z?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
@@ -312,7 +349,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifAdresse(champ)
 	{
 		var regex = /[?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!;.?+]/;
@@ -327,7 +364,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifCP(champ)
 	{
 		var regex = /[a-zA-Z?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
@@ -342,7 +379,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifVille(champ)
 	{
 		var regex = /[0-9?&~"#{(\[|_\\^@)\]=}$?£µ*%:\/!,;.?+]/;
@@ -357,7 +394,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifAncienMDP(champ)
 	{
 	   if(champ.value.length < 2 || champ.value.length > 25)
@@ -371,10 +408,10 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifNewMDP(champ)
 	{
-	   if(champ.value.length < 2 || champ.value.length > 25)
+	   if(champ.value.length < 5 || champ.value.length > 25)
 	   {
 		  surligne(champ, true);
 		  return false;
@@ -385,7 +422,7 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
+
 	function verifNewMDP2(champ)
 	{
 	   if(champ.value.length < 2 || champ.value.length > 25)
@@ -399,27 +436,11 @@ function surligne(champ, erreur)
 		  return true;
 	   }
 	}
-	
-	function verifField(chaine,phrase,regex){	
-	
 
-	if(regex.test(chaine) == false){
-		return false;		
-	}else{
-		return true;
-	}
-	}
-
-	
-	function verifForm(f)
-	{
-	   // var pseudoOk = verifPrenom(f.identite);
-	   /*if(pseudoOk && mailOk && sujetOk && messageOk){
-		  document.getElementById("validation_formulaire").innerHTML = "Votre message a bien été pris en compte et sera traité dans les plus brefs délais.";
-		  return true;
-	   }else
-	   {
-		  document.getElementById("validation_formulaire").innerHTML = "Veuillez vérifier les champs du formulaire.";
-		  return false;
-	   }*/
+	function verifField(chaine,phrase,regex){
+		if(regex.test(chaine) == false){
+			return false;
+		}else{
+			return true;
+		}
 	}

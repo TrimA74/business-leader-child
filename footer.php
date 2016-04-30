@@ -10,16 +10,25 @@
 
 	</div><!-- #content -->
 	<footer id="colophon" class="site-footer" role="contentinfo">
+	<?php if($_GET["lang"]=="it"){
+		echo '<p style="color:white;text-align:center;padding-bottom:50px;padding-top: 25px;font-size:12px;">I nostri partenariati</p>';
+	}else{
+		echo '<p style="color:white;text-align:center;padding-bottom:50px;padding-top: 25px;font-size:12px;">Nos partenariats</p>';
+	}
+	?>
+	<a href="http://www.mairie-meythet.fr/" target="_blank"><img id="meythet_footer_img" src="http://meythet-capaci.com/wp-content/themes/business-leader-child/images/mairie_meythet.png"/></a>
+	<a href="http://www.comune.capaci.pa.it/" target="_blank"><img id="capaci_footer_img" src="http://meythet-capaci.com/wp-content/themes/business-leader-child/images/mairie_capaci.png"/></a>
+		
 		<?php get_sidebar( 'footer' ); ?>
 		<div id="footer" class="site-info" align="center">
-			Optimisé pour Firefox et Chrome
-			<?php printf( '&copy; %1$s <a href="%2$s" rel="site url">%3$s</a>', date("Y"), get_site_url(), get_bloginfo('name') ); ?>
-			</br>
-			________</br>
-Les informations recueillies sont nécessaires pour votre inscription.</br>
-Elles font l’objet d’un traitement informatique et sont destinées au Comité de Jumelage de Meythet-Capaci.</br>
-En application des articles 39 et suivants de la loi du 6 janvier 1978 modifiée, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent.</br>
-Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adresser à : [your-email] ou modifier directement vos informations via la rubrique "Mon Profil" du site.
+			<?php if($_GET["lang"]=="it"){
+					printf( '&copy; %1$s <a href="%2$s" rel="site url">%3$s</a>', date("Y"), get_site_url(), "Comitato di Gemellaggio - Meythet e Capaci" );
+					echo '<a href="http://meythet-capaci.com/mentions-legales/"><p style="color:white;font-size:12px;">Indicazioni Obbligatorie</p></a>';
+				  }else{
+					printf( '&copy; %1$s <a href="%2$s" rel="site url">%3$s</a>', date("Y"), get_site_url(), "Comité de Jumelage de Meythet et Capaci" );
+					echo '<a href="http://meythet-capaci.com/mentions-legales/"><p style="color:white;font-size:12px;">Mentions Légales</p></a>';
+				  }
+					?>
 		</div><!-- .site-info -->
 		
 	</footer><!-- #colophon -->

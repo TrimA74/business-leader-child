@@ -29,10 +29,10 @@ if(isset($_POST["button_update"]))
 <form onsubmit="verifForm(this)" action="#" method="POST">
 	<div id="profilleft">
 	<br/>
-	 <p id="mon_profil" class="aligntitre">Mon Profil</p>
+	 <p id="mon_profil" class="aligntitre"><?php if($_GET["lang"]=="it"){ echo "Mio Profilo"; }else{ echo "Mon Profil";} ?></p>
 	 <table id="profiltable">
 	<tr >
-		<th id="largeur_th"><label id="prenom" for="first_name"><?php _e('Prénom') ?></label></th>
+		<th id="largeur_th"><label id="prenom" for="first_name"><?php if($_GET["lang"]=="it"){ echo "Nome"; }else{ echo "Prénom";} ?></label></th>
 		<div>
 		<?php 
 			$current_user = wp_get_current_user();
@@ -43,7 +43,7 @@ if(isset($_POST["button_update"]))
 	</tr>
 
 	<tr >
-		<th id="largeur_th"><label id="nom" for="last_name"><?php _e('Nom') ?></label></th>
+		<th id="largeur_th"><label id="nom" for="last_name"><?php if($_GET["lang"]=="it"){ echo "Cognome"; }else{ echo "Nom";} ?></label></th>
 		<div>
 		<?php 
 		echo '<td><input type="text" name="last_name" onblur="verifNom(this)" id="last_name" value="'.esc_attr($current_user->last_name).'" class="regular-text" /></td>';
@@ -60,7 +60,7 @@ if(isset($_POST["button_update"]))
 	</tr>
 
 	<tr >
-		<th id="largeur_th"><label id="tel" for="tel_profil"><?php _e('Téléphone') ?></label></th>
+		<th id="largeur_th"><label id="tel" for="tel_profil"><?php if($_GET["lang"]=="it"){ echo "Telefono"; }else{ echo "Tel";} ?></label></th>
 		<div>
 		<?php 
 			$current_user = wp_get_current_user();
@@ -70,7 +70,7 @@ if(isset($_POST["button_update"]))
 		</div>
 	</tr>
 	<tr >
-		<th id="largeur_th"><label id="adresse_label" for="adresse_update"><?php _e('Adresse') ?></label></th>
+		<th id="largeur_th"><label id="adresse_label" for="adresse_update"><?php if($_GET["lang"]=="it"){ echo "Indirizzo"; }else{ echo "Adresse";} ?></label></th>
 		<div>
 		<?php 
 		echo '<td><input type="text" onblur="verifAdresse(this)" name="adresse_update" id="adresse_update" value="'.esc_attr($current_user->adresse).'" class="regular-text ltr" /></td>';
@@ -84,14 +84,14 @@ if(isset($_POST["button_update"]))
 	<table id="comptetable">
 
 	<tr >
-		<th id="largeur_th"><label id="codepostal" for="codepostal_profil">Code Postal <span class="description"></span></label></th>
+		<th id="largeur_th"><label id="codepostal" for="codepostal_profil"><?php if($_GET["lang"]=="it"){ echo "Codice postale"; }else{ echo "Code Postal";} ?><span class="description"></span></label></th>
 		<div>
 		<td><input type="text"  onblur="verifCP(this)" name="codepostal_profil" id="codepostal_profil" value="<?php echo esc_attr($current_user->cp) ?>" class="regular-text" /></td>
 		</div>
 	</tr>
 
 	<tr >
-		<th id="largeur_th"><label id="ville" for="ville_profil"><?php _e('Ville') ?></label></th>
+		<th id="largeur_th"><label id="ville" for="ville_profil"><?php if($_GET["lang"]=="it"){ echo "Città"; }else{ echo "Ville";} ?></label></th>
 		<div>
 		<?php 
 			$current_user = wp_get_current_user();
@@ -102,19 +102,18 @@ if(isset($_POST["button_update"]))
 	</tr>
 
 	<tr >
-		<th id="largeur_th"><label id="ancienmdp" for="ancienmdp_profil"><?php _e('Ancien Mot de Passe') ?></label></th>
+		<th id="largeur_th"><label id="ancienmdp" for="ancienmdp_profil"><?php if($_GET["lang"]=="it"){ echo "Vecchia password"; }else{ echo "Ancien mot de passe";} ?></label></th>
 		<div>
 		<?php 
 			$current_user = wp_get_current_user();
 			$id_user = $current_user->ID;
-			echo $current_user->user_pass ;
 		echo '<td><input type="password" onblur="verifAncienMDP(this)" name="ancienmdp_profil" id="ancienmdp_profil" class="regular-text" /></td>';
 		?>
 		</div>
 	</tr>
 
 	<tr id="password" class="user-pass1-wrap">
-		<th id="largeur_th"><label for="pass1">Nouveau mot de passe</label></th>
+		<th id="largeur_th"><label for="pass1"><?php if($_GET["lang"]=="it"){ echo "Nuova password"; }else{ echo "Nouveau mot de passe";} ?></label></th>
 		<td>		
 			<div class="wp-pwd hide-if-js">
 				<span class="password-input-wrapper">
@@ -124,42 +123,94 @@ if(isset($_POST["button_update"]))
 		</td>
 	</tr>
 	<tr class="user-pass2-wrap hide-if-js">
-		<th id="largeur_th" scope="row"><label for="pass2">Répétez le nouveau mot de passe</label></th>
+		<th id="largeur_th" scope="row"><label for="pass2"><?php if($_GET["lang"]=="it"){ echo "Ripeta il Nuova password"; }else{ echo "Répétez le nouveau mot de passe";} ?></label></th>
 		<td>
 		<input name="pass2" type="password" onblur="verifNewMDP2(this)" id="pass2" class="regular-text" value="" autocomplete="off" />
 		</td>
 	</tr>
 	</table>
 	</div>
-	<button id="buttonenregistrer" class="button button-primary" name="button_update">Enregistrer les modifications</button>
+	<button id="buttonenregistrer" name="button_update" style="margin-left:40%;margin-bottom:30px;padding: 0.7em 1em;font-size: 1.7rem;font-weight: 400;font-family: 'Lato',Helvetica,Arial,sans-serif;text-transform: uppercase;line-height: 1;background: transparent none repeat scroll 0% 0% padding-box;color: black;border: 2px solid black;border-radius: 4px;"><?php if($_GET["lang"]=="it"){ echo "Salvare le modifiche"; }else{ echo "Enregistrer les modifications";} ?></button>
 </form>
-<?php 
-	if($_SESSION["fn"]=="true"){
-		echo "Le prénom ne peut pas contenir de caractères spéciaux.";
+<?php
+	echo "<div id='message_erreur'>";
+	if($_GET["lang"]=="it"){
+		if($_SESSION["fn"]=="true"){
+		echo "<br/>Il nome non può contenere di caratteri speciali.";
+		}
+		if($_SESSION["ln"]=="true")
+		{
+			echo "<br/>Il nome non può contenere dei caratteri speciali.";
+		}
+		if($_SESSION["tel"]=="true")
+		{
+			echo "<br/>Il telefono può contenere solamente 10 cifre.";
+		}
+		if($_SESSION["ville"]=="true")
+		{
+			echo "<br/>La città non può contenere di caratteri speciali.";
+		}
+		if($_SESSION["cp"]=="true")
+		{
+			echo "<br/>Il codice postale può contenere solamente 5 cifre.";
+		}
+		if($_SESSION["adresse"]=="true")
+		{
+			echo "<br/>L'indirizzo non può contenere di caratteri speciali altri che ,.'-";
+			
+		}
+		if($_SESSION["newpass"]=="true")
+		{
+			echo "<br/>La vecchia parola di ordine è scorretta.";
+			
+		}
+		
+		if($_SESSION["nvxpass"]=="!identiques")
+		{
+			echo "<br/>I campi di nuovo parola di ordine deve essere identica.";
+			
+		}
+		echo "</div>";
+	}else{
+		if($_SESSION["fn"]=="true"){
+		echo "<br/>Le prénom ne peut pas contenir de caractères spéciaux.";
+		}
+		if($_SESSION["ln"]=="true")
+		{
+			echo "<br/>Le nom ne peut pas contenir de caractères spéciaux.";
+		}
+		if($_SESSION["tel"]=="true")
+		{
+			echo "<br/>Le téléphone ne peut contenir que 10 chiffres.";
+		}
+		if($_SESSION["ville"]=="true")
+		{
+			echo "<br/>La ville ne peut pas contenir de caractères spéciaux.";
+		}
+		if($_SESSION["cp"]=="true")
+		{
+			echo "<br/>Le code postal ne peut contenir que 5 chiffres.";
+		}
+		if($_SESSION["adresse"]=="true")
+		{
+			echo "<br/>L'adresse ne peut pas contenir de caractères spéciaux autres que ,.'-";
+			
+		}
+		if($_SESSION["newpass"]=="true")
+		{
+			echo "<br/>L'ancien mot de passe est incorrect.";
+			
+		}
+		
+		if($_SESSION["nvxpass"]=="!identiques")
+		{
+			echo "<br/>Les champs de nouveau mot de passe doivent être identiques.";
+			
+		}
+		echo "</div>";
+	
 	}
-	if($_SESSION["ln"]=="true")
-	{
-		echo "Le nom ne peut pas contenir de caractères spéciaux.";
-	}
-	if($_SESSION["tel"]=="true")
-	{
-		echo "Le téléphone ne peut contenir que 10 chiffres.";
-	}
-	if($_SESSION["ville"]=="true")
-	{
-		echo "La ville ne peut pas contenir de caractères spéciaux.";
-	}
-	if($_SESSION["cp"]=="true")
-	{
-		echo "Le code postal ne peut contenir que 5 chiffres.";
-	}
-	if($_SESSION["adresse"]=="true")
-	{
-		echo "L'adresse ne peut pas contenir de caractères spéciaux autres que ,.'-";
-	    
-	}
-	echo  var_dump($_SESSION["tel"]);
-	echo var_dump($_SESSION['pass']);
+	
 ?>
 
  <p id="mesreservs" class="aligntitre">Mes Réservations</p>

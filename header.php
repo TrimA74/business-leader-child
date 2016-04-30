@@ -14,12 +14,12 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-
 <?php wp_head();?>
+
 <?php 
-//if( !current_user_can( 'manage_options' ) ) {
+if( !current_user_can( 'manage_options' ) ) {
 ?>
-<!--<script>
+<script>
 	function clickIE()
 		{
 			if (document.all) {
@@ -42,9 +42,9 @@
 			document.oncontextmenu=clickIE;
 			}
 		document.oncontextmenu=new Function("return false");
-</script>-->
+</script>
 <?php
-/*}*/
+}
 ?>
  
 </head>
@@ -56,9 +56,10 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'bus_leader' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
-		<button id="btnconnec"  name="connexion_button_boxopen">Connexion</button>
-		<button id="btnins"  href= <?php	echo do_shortcode( '[formlightbox title="" text="Inscription"]
-					[cfp id="62" title="Sans titre" pwd="insPasswd"][/formlightbox]' );?></button>
+		<button id="btnconnec"  name="connexion_button_boxopen"><?php if($_GET["lang"]=="it"){ /* echo "<p id='btnconnec' style='margin-right:-30px;'>Connessione</p>"; */ echo "Connessione"; }else{ echo "Connexion";} ?></button>
+		<button id="btnins"  href=<?php if($_GET["lang"]=="it"){	echo do_shortcode( '[formlightbox title="" text="Iscrizione"]
+		[cfp id="62" title="Sans titre" pwd="insPasswd"][/formlightbox]' );}else{ echo do_shortcode( '[formlightbox title="" text="Inscription"]
+		[cfp id="62" title="Sans titre" pwd="insPasswd"][/formlightbox]' );}?></button>
 			<?php 
 					
 			        $site_url = get_site_url();
@@ -134,8 +135,8 @@
 						
 						var lienit = lang[0].children[0].href;
 						var lienfr = lang[0].children[1].href;
-						var newLienfr = lienfr.replace("it","fr");
-						var newLienit = lienit.replace("fr","it");
+						var newLienfr = lienfr.replace("=it","=fr");
+						var newLienit = lienit.replace("=fr","=it");
 						var nth = 0;
 						newLienit = newLienit.replace(/\?/g, function (match, i, original) {
 						    nth++;

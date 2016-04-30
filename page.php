@@ -9,7 +9,13 @@
  *
  * @package Business Leader
  */
+//Construction site acces
+ session_start();
 
+if($_SESSION["construction_login_admin"] != "connecte"){
+	header('Location: http://meythet-capaci.com/wp-content/themes/business-leader-child/construction.php');
+}
+ 
 get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">

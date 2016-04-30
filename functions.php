@@ -1,13 +1,13 @@
 <?php
 // if(isset($_GET["blabla"]))
 // {
-//   echo "test";
-//   $user = wp_get_current_user();
-//   echo json_encode($user);
+  // echo "test";
+  // $user = wp_get_current_user();
+  // echo json_encode($user);
 // }
 
-session_start();
 
+session_start();
 
 function traitement_formulaire_update() {
 	if (isset($_POST['first_name']) &&
@@ -19,7 +19,7 @@ function traitement_formulaire_update() {
 		isset($_POST['pass1']) &&
 		isset($_POST['pass2']) &&
 		isset($_POST['codepostal_profil'])) {
-			
+
 		$_SESSION['fn']='';
 		$_SESSION['ln']='';
 		$_SESSION['tel']='';
@@ -27,31 +27,31 @@ function traitement_formulaire_update() {
 		$_SESSION['ville']='';
 		$_SESSION['cp']='';
 		$_SESSION['pass']='';
-			
+
 		if (!empty($_POST['first_name'])){
-			
+
 			$fn=$_POST['first_name'];
-			$Syntaxename="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
-			if (preg_match($Syntaxename, $fn)){
+      $regex = "/[0-9<,>^@&\"()\\!_\$\*€£\+=\/;?#\[\]\{\}]/";
+			if (!preg_match($regex, $fn)){
 					update_user_meta(get_current_user_id(), first_name, esc_attr($fn));
 			}
 			else{
 				$_SESSION['fn'] = 'true';
 			}
-		
-			
+
+
 		}
 		if (!empty($_POST['last_name'])){
-			
+
 			$ln=$_POST['last_name'];
-			$Syntaxelastname="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
-			if (preg_match($Syntaxelastname, $ln)){
+			$Syntaxelastname="/[0-9<,>^@&\"()\\!_\$\*€£\+=\/;?#\[\]\{\}]/";
+			if (!preg_match($Syntaxelastname, $ln)){
 					update_user_meta(get_current_user_id(), last_name, esc_attr($ln));
 			}
 			else{
 				$_SESSION['ln'] = 'true';
 			}
-			
+
 		}
 		if(!empty($_POST['tel_profil'])){
 			$tel=$_POST['tel_profil'];
@@ -62,12 +62,12 @@ function traitement_formulaire_update() {
 			else{
 				$_SESSION['tel'] = 'true';
 			}
-			
+
 		}
 		if(!empty($_POST['adresse_update'])){
 			$adresse=$_POST['adresse_update'];
-			$Syntaxeadresse="#[a-z0-9_]+#";
-			if (preg_match($Syntaxeadresse, $adresse)){
+			$Syntaxeadresse="/[<>^@&\"()\\!_\$\*€£\+=\/;?#\[\]\{\}]/";
+			if (!preg_match($Syntaxeadresse, $adresse)){
 				update_user_meta(get_current_user_id(), adresse, esc_attr($adresse));
 			}
 			else{
@@ -76,14 +76,14 @@ function traitement_formulaire_update() {
 		}
 		if(!empty($_POST['ville_profil'])){
 			$ville=$_POST['ville_profil'];
-			$Syntaxeville="#^[a-z][a-z-éèçàù']{0,20}[a-zéèçàù]$#i";
-			if (preg_match($Syntaxeville, $ville)){
+			$Syntaxeville="/[0-9<,>^@&\"()\\!_\$\*€£\+=\/;?#\[\]\{\}]/";
+			if (!preg_match($Syntaxeville, $ville)){
 				update_user_meta(get_current_user_id(), ville, esc_attr($ville));
 			}
 			else{
 				$_SESSION['ville'] = 'true';
 			}
-			
+
 		}
 		if(!empty($_POST['codepostal_profil'])){
 			$cp=$_POST['codepostal_profil'];
@@ -94,22 +94,36 @@ function traitement_formulaire_update() {
 			else{
 				$_SESSION['cp'] = 'true';
 			}
-			
+
 		}
-		if(!empty($_POST['ancienmdp_profil']) && 
-		   !empty($_POST['pass1']) && 
+		if(!empty($_POST['ancienmdp_profil']) &&
+		   !empty($_POST['pass1']) &&
 		   !empty($_POST['pass2'])){
-			
-			$ancienmdp=/*get_user_meta(get_current_user_id(),*/ wp_get_current_user()->user_pass/*, true )*/;
-      $_SESSION['pass'] = wp_get_current_user()->user_pass;
+			$_SESSION['pass'] = wp_get_current_user()->user_pass;
+			$passcomparaison = wp_get_current_user()->user_pass;
+			$iddugugus= get_current_user_id();
+			$ancienmdp=get_user_meta(get_current_user_id(), $passcomparaison, true );
+			$_SESSION["iddugugus"]=get_current_user_id();
+			$_SESSION["ancienmdp_profil"]=$_POST['ancienmdp_profil'];
 			$recupmdpform=$_POST['ancienmdp_profil'];
-			/*if(wp_check_password($recupmdpform, $ancienmdp, get_current_user_id())){
-		
-					$_SESSION['pass'] = 'true';
-			}*/
+
+			if(wp_check_password($recupmdpform, $passcomparaison, $iddugugus)){
+				if($_POST['pass1'] == $_POST['pass2']){
+					wp_set_password( $_POST['pass2'], $iddugugus );
+
+				}
+				else{
+					$_SESSION["nvxpass"]="!identiques";
+				}
+
+			}
+			else{
+				$_SESSION['pass1'] = 'false';
+				$_SESSION["newpass"]="true";
+			}
 		}
-		
-		
+
+
 	}
 }
 
@@ -128,11 +142,12 @@ function cjm_enqueue_scripts() {
     * Ajout du script manip_groupe.js quelque soit le naviguateur
     */
     wp_register_script( 'manip_groupe',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'manip_groupe.js', 'jquery', '1.0');
+    wp_enqueue_script( 'analytics',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'analytics.js', '1.0');
     wp_localize_script( 'manip_groupe', 'cjm_object',
          array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'site_url_js' => get_site_url(), 'logout_link' => wp_logout_url() , "is_connected" => is_user_logged_in(), "current_lang" => $_GET['lang']) );
     wp_enqueue_script( 'manip_groupe' );
 
-    
+
     /*
     * Ajout feuille de style ie.css et script ie.js pour Internet Explorer avec version inférieur à 10
     */
@@ -140,7 +155,7 @@ function cjm_enqueue_scripts() {
     wp_register_script( 'ie_js',get_site_url() . '/wp-content/themes/business-leader-child/js/' . 'ie.js', 'jquery', '1.0');
     $wp_scripts->add_data( 'ie_js', 'conditional', 'lt IE 10' );
     wp_enqueue_script( 'ie_js' );
-    $wp_styles->add_data( 'my-theme-ie', 'conditional', 'lt IE 10' );  
+    $wp_styles->add_data( 'my-theme-ie', 'conditional', 'lt IE 10' );
 }
 
 add_action( 'wp_enqueue_scripts', 'cjm_enqueue_scripts');
@@ -162,16 +177,16 @@ function cfp($atts, $content = null) {
     return $cf7;
 }
 add_shortcode('cfp', 'cfp');
-
+/*Modifications du formulaire d'inscriptions*/
 
 add_filter( 'wpcf7_validate_email*', 'custom_email_confirmation_validation_filter', 20, 2 );
 function custom_email_confirmation_validation_filter( $result, $tag ) {
     $tag = new WPCF7_Shortcode( $tag );
- 
+
     if ( 'ConfEmail' == $tag->name ) {
         $your_email = isset( $_POST['Email'] ) ? trim( $_POST['Email'] ) : '';
         $your_email_confirm = isset( $_POST['ConfEmail'] ) ? trim( $_POST['ConfEmail'] ) : '';
- 
+
         if(!email_exists($your_email)){
 
             if ( $your_email != $your_email_confirm ) {
@@ -181,26 +196,26 @@ function custom_email_confirmation_validation_filter( $result, $tag ) {
                 $result->invalidate( $tag, "Adresse mail déjà utilisée" );
         }
     }
- 
+
     return $result;
 }
 
 add_filter( 'wpcf7_validate_text*', 'custom_password_confirmation_validation_filter', 20, 2 );
 function custom_password_confirmation_validation_filter( $result, $tag ) {
     $tag = new WPCF7_Shortcode( $tag );
- 
+
     if ( 'insConfPasswd' == $tag->name ) {
         $your_email = isset( $_POST['insPasswd'] ) ? trim( $_POST['insPasswd'] ) : '';
         $your_email_confirm = isset( $_POST['insConfPasswd'] ) ? trim( $_POST['insConfPasswd'] ) : '';
- 
+
         if ( $your_email != $your_email_confirm ) {
             $result->invalidate( $tag, "Les mots de passe ne correspondent pas" );
         }
     }
- 
+
     return $result;
 }
- 
+
 
 function create_user_from_registration($cfdata) {
     if (!isset($cfdata->posted_data) && class_exists('WPCF7_Submission')) {
@@ -228,17 +243,17 @@ function create_user_from_registration($cfdata) {
         $insville  = $formdata['insVille'];
         $password = $formdata['insPasswd'];
 
-       
+
         if ( !email_exists( $email ) ) {
-            
-          
+
+
             // Create the user
             $userdata = array(
                 'user_login' => $insmail,
                 'user_email' => $insmail,
                 'user_pass' =>  $password,
-                'first_name' => $insname,
-                'last_name' => $insprenom
+                'first_name' => $insprenom,
+                'last_name' => $insname
             );
             $user_id = wp_insert_user( $userdata );
             if ( !is_wp_error($user_id) ) {
@@ -258,14 +273,33 @@ function create_user_from_registration($cfdata) {
                     echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
                     echo '<strong>Erreur d\'insertion base de données('.$k.')</strong>';
                     echo '</div>';
-               }              
-
+               }
             }
-                
+                    $code = sha1( $user_id . time() );
+                    $activation_link = add_query_arg( array( 'key' => $code, 'user' => $user_id ), get_permalink(63));
+                    add_user_meta( $user_id, 'has_to_be_activated', $code, true );
+                    wp_mail( $insmail, 'Confirmez votre inscription', '
+
+                   Le Comité de Jumelage de Meythet-Capaci vous remercie de votre inscription. Veuillez confirmer la validité de votre adresse e-mail en cliquant sur le lien d\'activation suivant: ' . $activation_link);
+            }
+    }
+    return $cfdata;
+  }
+}
+
+
+add_action( 'template_redirect', 'wpse8170_activate_user' );
+function wpse8170_activate_user() {
+    if ( is_page() && get_the_ID() == 63 ){
+        $user_id = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 1 ) ) );
+        if ( $user_id ) {
+            // get user meta activation hash field
+            $code = get_user_meta( $user_id, 'has_to_be_activated', true );
+            if ( $code == filter_input( INPUT_GET, 'key' ) ) {
+                delete_user_meta( $user_id, 'has_to_be_activated' );
             }
         }
     }
-    return $cfdata;
 }
 /*function cjm_enqueue_scripts() {
 wp_register_script( 'manip_groupe',get_site_url() . '/wp-content/themes/zerif-lite child/js/' . 'manip_groupe.js', 'jquery', '1.0');
@@ -280,13 +314,13 @@ add_action('wpcf7_before_send_mail', 'create_user_from_registration', 1);
 
 function theme_add_user_info_column( $columns ) {
         $columns['tel'] = __( 'Téléphone');
-        $columns['adresse'] = __( 'Adresse');   
-        $columns['ville'] = __( 'Ville');   
-        $columns['cp'] = __( 'Code postal');       
+        $columns['adresse'] = __( 'Adresse');
+        $columns['ville'] = __( 'Ville');
+        $columns['cp'] = __( 'Code postal');
         return $columns;
-} 
+}
 function theme_show_user_tel_data( $value, $column_name, $user_id ) {
-     return esc_attr__(get_user_meta( $user_id, $column_name, true ));   
+     return esc_attr__(get_user_meta( $user_id, $column_name, true ));
 }
 add_filter('manage_users_columns','theme_add_user_info_column');
 add_action('manage_users_custom_column','theme_show_user_tel_data',10,3);
@@ -305,7 +339,7 @@ function yoursite_extra_user_profile_fields( $user ) {
     <tr>
       <th><label for="tel"><?php _e("Tel"); ?></label></th>
       <td>
-        <input type="text" name="tel" id="tel" class="regular-text" 
+        <input type="text" name="tel" id="tel" class="regular-text"
             value="<?php echo esc_attr( get_the_author_meta( 'tel', $user->ID ) ); ?>" /><br />
         <span class="description"><?php _e(""); ?></span>
       </td>
@@ -313,7 +347,7 @@ function yoursite_extra_user_profile_fields( $user ) {
     <tr>
       <th><label for="adresse"><?php _e("Adresse"); ?></label></th>
       <td>
-        <input type="text" name="adresse" id="adresse" class="regular-text" 
+        <input type="text" name="adresse" id="adresse" class="regular-text"
             value="<?php echo esc_attr( get_the_author_meta( 'adresse', $user->ID ) ); ?>" /><br />
         <span class="description"><?php _e(""); ?></span>
       </td>
@@ -321,7 +355,7 @@ function yoursite_extra_user_profile_fields( $user ) {
      <tr>
       <th><label for="cp"><?php _e("Code Postal"); ?></label></th>
       <td>
-        <input type="text" name="cp" id="cp" class="regular-text" 
+        <input type="text" name="cp" id="cp" class="regular-text"
             value="<?php echo esc_attr( get_the_author_meta( 'cp', $user->ID ) ); ?>" /><br />
         <span class="description"><?php _e(""); ?></span>
       </td>
@@ -329,7 +363,7 @@ function yoursite_extra_user_profile_fields( $user ) {
      <tr>
       <th><label for="ville"><?php _e("Ville"); ?></label></th>
       <td>
-        <input type="text" name="ville" id="ville" class="regular-text" 
+        <input type="text" name="ville" id="ville" class="regular-text"
             value="<?php echo esc_attr( get_the_author_meta( 'ville', $user->ID ) ); ?>" /><br />
         <span class="description"><?php _e(""); ?></span>
       </td>
@@ -356,7 +390,7 @@ function yoursite_save_extra_user_profile_fields( $user_id ) {
 
 function hide_profile_fields( $contactmethods ) {
   if($user->roles[0] == 'subscriber'){
- 
+
   unset($contactmethods['user_login']);
   unset($contactmethods['admin_color']);
   unset($contactmethods['comment_shortcuts']);
@@ -364,7 +398,7 @@ function hide_profile_fields( $contactmethods ) {
   unset($contactmethods['rich_editing']);
   unset($contactmethods['user_level']);
   unset($contactmethods['plugins_per_page']);
-  unset($contactmethods['description']); 
+  unset($contactmethods['description']);
   unset($contactmethods['user_status']);
   unset($contactmethods['user_activation_key']);
   unset($contactmethods['user_url']);
@@ -373,7 +407,7 @@ function hide_profile_fields( $contactmethods ) {
   return $contactmethods;
 }
 add_filter('user_contactmethods','hide_profile_fields',10,1);
- 
+
 function register_my_widget_theme() {
 	// sidebar pour les pages
    register_sidebar(array(
@@ -395,7 +429,7 @@ function gkp_no_autosave() {
 
 
 /*function namespace_add_custom_types( $query ) {
-  
+
   if( is_category('Voyages') && empty( $query->query_vars['suppress_filters'] ) ) {
     $query->set( 'post_type', array(
      'post', 'nav_menu_item', 'reservation'
@@ -414,7 +448,7 @@ function recup_user(){
   if($user->roles[0] == 'subscriber'){
     //var_dump($user->roles);
   }
-  
+
 }
 
 //admin-bar custom
@@ -426,9 +460,9 @@ function remove_wp_logo() {
     $wp_admin_bar->remove_menu('wp-logo');
     $wp_admin_bar->remove_menu('site-name');
     $wp_admin_bar->remove_menu('search');
-    $wp_admin_bar->remove_menu('admin-dashboard'); 
-    $wp_admin_bar->remove_menu('my-account');   
-      
+    $wp_admin_bar->remove_menu('admin-dashboard');
+    $wp_admin_bar->remove_menu('my-account');
+
   }else{
      $wp_admin_bar->remove_menu('wp-logo');
      $wp_admin_bar->remove_menu('search');
@@ -440,19 +474,77 @@ add_action( 'wp_before_admin_bar_render', 'remove_wp_logo' );
 
 
 add_role('adherent_user', 'Adhérent', array(
-      'read' => true, 
-  ));
+      'read' => true,
+  )); 
 
+// remove_role( "admin_comite" );
+add_role('admin_comite', 'Membre du comité', array(
+      'read' => true,
+      'delete_others_pages' => true, 
+      'delete_others_posts' => true,
+      'delete_pages' => true,
+      'delete_posts' => true,
+      'delete_private_pages' => true,
+      'delete_private_posts' => true,
+      'delete_published_pages' => true,
+      'delete_published_posts' => true,
+      'edit_dashboard' => true,
+      'edit_others_pages' => true,
+      'edit_others_posts' => true,
+      'edit_pages' => true,
+      'edit_posts' => true,
+      'edit_private_pages' => true,
+      'edit_private_posts' => true,
+      'edit_published_pages' => true,
+      'edit_published_posts' => true,
+      'edit_theme_options' => true,
+      'export' => true,
+      'import' => true,
+      'list_users' => true,
+      'manage_categories' => true,
+      'manage_links' => true,
+      'manage_options' => true,
+      'moderate_comments' => true,
+      'promote_users' => true,
+      'publish_pages' => true,
+      'publish_posts' => true,
+      'read_private_pages' => true,
+      'read_private_posts' => true,
+      'upload_files' => true,
+      'update_core' => true, 
+      'update_plugins' => true, 
+      'update_themes' => true, 
+      'install_plugins' => true, 
+      'install_themes' => true, 
+      'delete_themes' => true, 
+      'edit_plugins' => true, 
+      'edit_themes' => true, 
+      'delete_plugins' => true, 
+      'delete_users' => true,
+      'edit_files' => true,
+      'create_users' => true,
+      'edit_users' => true,
+      'unfiltered_html' => true,
+      'manage_network_plugins' => true,
+  )); 
 /*Profil*/
 function custom_adminbar_menu( $meta = TRUE ) {
   global $wp_admin_bar;
     if ( is_user_logged_in() && !current_user_can( 'manage_options' ) ){
-    
-    $wp_admin_bar->add_menu( array(
-    'id' => 'custom_menu',
-    'title' => __( 'Mon Profil' ),
-    'href' => get_site_url().'?page_id=543&lang=fr'
-     ));
+	if($_GET["lang"]=="it"){
+		$wp_admin_bar->add_menu( array(
+		'id' => 'custom_menu',
+		'title' => __( 'Mio profilo' ),
+		'href' => get_site_url().'?page_id=159&lang=it'
+		 ));
+	}else{
+		$wp_admin_bar->add_menu( array(
+		'id' => 'custom_menu',
+		'title' => __( 'Mon Profil' ),
+		'href' => get_site_url().'?page_id=159&lang=fr'
+		 ));
+	}
+
   }
 }
 add_action( 'admin_bar_menu', 'custom_adminbar_menu', 75 );
@@ -468,7 +560,74 @@ add_filter('protected_title_format', 'GkProtected');
 function GkProtected($title) {
        return 'Privé : %s';
 }
+// Disable support for comments and trackbacks in post types
+function df_disable_comments_post_types_support() {
+	$post_types = get_post_types();
+	foreach ($post_types as $post_type) {
+		if(post_type_supports($post_type, 'comments')) {
+			remove_post_type_support($post_type, 'comments');
+			remove_post_type_support($post_type, 'trackbacks');
+		}
+	}
+}
+add_action('admin_init', 'df_disable_comments_post_types_support');
 
+// Close comments on the front-end
+function df_disable_comments_status() {
+	return false;
+}
+add_filter('comments_open', 'df_disable_comments_status', 20, 2);
+add_filter('pings_open', 'df_disable_comments_status', 20, 2);
 
+// Hide existing comments
+function df_disable_comments_hide_existing_comments($comments) {
+	$comments = array();
+	return $comments;
+}
+add_filter('comments_array', 'df_disable_comments_hide_existing_comments', 10, 2);
 
+// Remove comments page in menu
+function df_disable_comments_admin_menu() {
+	remove_menu_page('edit-comments.php');
+}
+add_action('admin_menu', 'df_disable_comments_admin_menu');
 
+// Redirect any user trying to access comments page
+function df_disable_comments_admin_menu_redirect() {
+	global $pagenow;
+	if ($pagenow === 'edit-comments.php') {
+		wp_redirect(admin_url()); exit;
+	}
+}
+add_action('admin_init', 'df_disable_comments_admin_menu_redirect');
+
+// Remove comments metabox from dashboard
+function df_disable_comments_dashboard() {
+	remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+}
+add_action('admin_init', 'df_disable_comments_dashboard');
+
+// Remove comments links from admin bar
+function df_disable_comments_admin_bar() {
+	if (is_admin_bar_showing()) {
+		remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+	}
+}
+add_action('init', 'df_disable_comments_admin_bar');
+
+/*
+Configuration mails
+*/
+
+add_filter('wp_mail_from', 'new_mail_from');
+add_filter('wp_mail_from_name', 'new_mail_from_name');
+
+function new_mail_from() { return 'jumelage.meythet.capaci@gmail.com'; }
+function new_mail_from_name() { return 'Jumelage Meythet-Capaci'; }
+// function my_custom_stuff_gwolle ($output) {
+// 	$output .= '<button style="text-align:center;" type="button" id="ins_resa" value="sinscrire" href="'.do_shortcode( '[formlightbox title="" text="Inscrivez-vous"]
+// 					[cfp id="62" title="Sans titre" pwd="insPasswd"][/formlightbox]').'</button>';
+// 	$output .= '<button style="text-align:center;" param="livreor" type="button" id="con_resa" value="se connecter">Connectez vous pour écrire un message</button>';
+// 	return $output;
+// }
+// add_filter('gwolle_gb_entries_read','my_custom_stuff_gwolle');
